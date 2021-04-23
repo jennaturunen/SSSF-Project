@@ -60,3 +60,7 @@
 .account-type .vertical-flex-container {
   justify-content: space-around;
 }
+
+#main-feed-container {
+  margin-top: 20px;
+}
