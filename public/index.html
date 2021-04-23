@@ -30,7 +30,7 @@
       <h1 class="login-header">Builders App</h1>
       <!-- LOG IN FORM -->
       <div class="login-form-container">
-        <form class="login-form">
+        <form id="login-form" class="login-form">
           <h2>Login</h2>
           <input type="text" name="username" placeholder="Username" required />
           <input
@@ -45,7 +45,7 @@
         </form>
         <span class="form-separator"></span>
         <!-- REGISTER-FORM -->
-        <form class="login-form">
+        <form id="register-form" class="login-form">
           <h2>Register</h2>
           <!--AT LEAST 3 LETTERS -->
           <input
@@ -73,27 +73,42 @@
             placeholder="Enter password again"
             required
           />
+          <div class="flex-column-container account-type">
+            <p>Account type</p>
+            <div class="vertical-flex-container">
+              <input type="checkbox" id="personal-account" name="personal" />
+              <label for="personal-account">Personal</label>
+              <input type="checkbox" id="company-account" name="company" />
+              <label for="company-account">Company</label>
+            </div>
+          </div>
+
           <button type="submit" class="submit-button">REGISTER</button>
         </form>
       </div>
     </section>
 
-    <!-- NAVIGATION BAR
-    <nav id="navi">
-      <div id="navigation">
-        <div class="hamburger-menu">
-          <div class="line-hmenu half start"></div>
-          <div class="line-hmenu"></div>
-          <div class="line-hmenu half end"></div>
-        </div>
-      </div>
-      <button id="logo">
-        <a id="logo-text" href="index.html">PARTY PLANNER</a>
-      </button>
-      <i class="fas fa-plus fa-2x" id="plus-icon"></i>
-    </nav>
-    
-    -->
+    <!-- MAIN PAGES -->
+    <section id="main-pages">
+      <!-- NAVIGATION BAR -->
+      <nav id="navigation">
+        <ul>
+          <li>BuildersApp</li>
+          <li>
+            <a>Feed</a>
+          </li>
+          <li>
+            <a>Find entrepreneurs</a>
+          </li>
+          <li>
+            <a>Your profile</a>
+          </li>
+          <li>
+            <a>Logout</a>
+          </li>
+        </ul>
+      </nav>
+    </section>
 
     <!-- ALL SCRIPTS -->
     <script

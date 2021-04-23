@@ -15,7 +15,7 @@
 
 .login-form-container {
   width: 80vw;
-  height: 50vh;
+  height: 75vh;
   background-color: white;
   display: flex;
   justify-content: space-between;
@@ -41,4 +41,22 @@
   background-color: grey;
   color: white;
   border-color: grey;
+}
+
+.flex-column-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.vertical-flex-container {
+  display: flex;
+  align-items: center;
+}
+
+.account-type {
+  width: 50%;
+}
+
+.account-type .vertical-flex-container {
+  justify-content: space-around;
 }
