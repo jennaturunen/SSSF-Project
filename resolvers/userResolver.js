@@ -41,7 +41,16 @@ export default {
         const result = await newUser.save();
         return result;
       } catch (e) {
-        console.log(`Error occured while registering new user ${e.message}`);
+        console.log(`Error occurred while registering new user ${e.message}`);
+      }
+    },
+  },
+  Post: {
+    added_by: (parent, args) => {
+      try {
+        return User.findById(parent.added_by);
+      } catch (e) {
+        console.log('Error while fetching the added_by user', e.message);
       }
     },
   },

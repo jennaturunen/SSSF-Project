@@ -38,11 +38,9 @@ passport.use(
       secretOrKey: 'builders123',
     },
     async (jwtPayload, done) => {
-      console.log('payload', jwtPayload);
       //find the user in db if needed
       try {
         const user = await User.findById(jwtPayload._id, '-password -__v');
-        console.log('pl user', user);
 
         return user !== null ? done(null, user) : done(null, false);
       } catch (e) {

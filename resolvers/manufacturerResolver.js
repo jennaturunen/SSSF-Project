@@ -1,18 +1,23 @@
 import Manufacturer from '../models/manufacturer.js';
+import { AuthenticationError } from 'apollo-server-express';
 
 export default {
   Query: {
     manufacturer: async (parent, args, { user }) => {
-      if (!user) {
-        throw new AuthenticationError('You are not authenticated');
+      if (!user) throw new AuthenticationError('You are not authenticated');
+      try {
+        return await Manufacturer.findById({ _id: args.id }).exec();
+      } catch (e) {
+        console.log(`Error occurred while fetching manufacturer ${e.message}`);
       }
-      return await Manufacturer.findById({ _id: args.id }).exec();
     },
     manufacturers: async (parent, args, { user }) => {
-      if (!user) {
-        throw new AuthenticationError('You are not authenticated');
+      if (!user) throw new AuthenticationError('You are not authenticated');
+      try {
+        return await Manufacturer.find();
+      } catch (e) {
+        console.log(`Error occurred while fetching manufacturers ${e.message}`);
       }
-      return await Manufacturer.find();
     },
   },
   Mutation: {
@@ -22,13 +27,19 @@ export default {
         const result = await newManufacturer.save();
         return result;
       } catch (e) {
-        console.log(`Error occured while adding new manufacturer ${e.message}`);
+        console.log(
+          `Error occurred while adding new manufacturer ${e.message}`
+        );
       }
     },
   },
-  // Post: {
-  //   Manufacturer: (parent, args) => {
-  //     return Manufacturer.findById(parent.manufacturer);
-  //   },
-  // },
+  Post: {
+    manufacturer: (parent, args) => {
+      try {
+        return Manufacturer.findById(parent.manufacturer);
+      } catch (e) {
+        console.log('Error while fetching manufacturer for post', e.message);
+      }
+    },
+  },
 };
