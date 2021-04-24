@@ -1,4 +1,6 @@
 import userSchema from './userSchema.js';
+//import postSchema from './postSchema.js';
+import manufacturerSchema from './manufacturerSchema.js';
 import { gql } from 'apollo-server-express';
 
 const linkSchema = gql`
@@ -10,4 +12,4 @@ const linkSchema = gql`
   }
 `;
 
-export default [linkSchema, userSchema];
+export default [linkSchema, userSchema, manufacturerSchema];

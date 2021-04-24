@@ -1,3 +1,5 @@
 import userResolver from './userResolver.js';
+//import postResolver from './postResolver.js';
+import manufacturerResolver from './manufacturerResolver.js';
 
-export default [userResolver];
+export default [userResolver, manufacturerResolver];
