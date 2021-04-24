@@ -64,3 +64,11 @@
 #main-feed-container {
   margin-top: 20px;
 }
+
+.filepond--root {
+  max-height: 200px;
+}
+
+.filepond--item {
+  width: calc(20% - 0.5em);
+}

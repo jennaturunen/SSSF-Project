@@ -9,9 +9,7 @@ const postSchema = new Schema({
   },
   package_name: String,
   description: String,
-  hashtags: {
-    type: [String],
-  },
+  hashtags: String,
   location_as_string: String,
   added_by: {
     type: mongoose.Schema.Types.ObjectId,

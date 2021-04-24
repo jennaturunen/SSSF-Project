@@ -26,6 +26,8 @@ export default {
       console.log('postResolver addPost new', args, user);
       if (!user) throw new AuthenticationError('You are not authenticated');
       try {
+        args.added_by = user.id;
+        console.log('uudet argit', args);
         const newPost = new Post(args);
         return await newPost.save();
       } catch (e) {

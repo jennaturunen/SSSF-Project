@@ -10,19 +10,15 @@
       integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
       crossorigin="anonymous"
     />
+    <link
+      href="https://unpkg.com/filepond/dist/filepond.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="css/styles.css" />
-    <script
-      src="https://kit.fontawesome.com/8624131126.js"
-      crossorigin="anonymous"
-    ></script>
-    <link
-      href="https://fonts.googleapis.com/css?family=Lato&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Montserrat&display=swap"
-      rel="stylesheet"
-    />
   </head>
   <body>
     <!-- LOGIN/REGISTER SECTION -->
@@ -117,7 +113,7 @@
       </nav>
 
       <!-- MAIN CARDS/PERSONAL ACCOUNTS -->
-      <div id="main-feed-container" class="container">
+      <!-- <div id="main-feed-container" class="container">
         <div class="row">
           <div class="col">FILTERS</div>
           <div class="col-10">
@@ -144,35 +140,30 @@
                   </div>
                 </div>
               </div>
-              <div class="col">
-                <div class="card h-100">
-                  <img src="..." class="card-img-top" alt="..." />
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">
-                      This is a longer card with supporting text below as a
-                      natural lead-in to additional content.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="col">
-                <div class="card h-100">
-                  <img src="..." class="card-img-top" alt="..." />
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">
-                      This is a longer card with supporting text below as a
-                      natural lead-in to additional content. This content is a
-                      little bit longer.
-                    </p>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
+
+      <form id="add-new-post-form" class="">
+        <h2>ADD NEW POST</h2>
+        <input type="text" name="description" placeholder="Description" />
+        <input type="text" name="manufacturer" placeholder="manufacturer" />
+        <input type="text" name="package_name" placeholder="package_name" />
+        <input type="text" name="hashtags" placeholder="hashtags" />
+        <input
+          type="text"
+          name="location_as_string"
+          placeholder="location_as_string"
+        />
+        <div>
+          <label>Filu</label>
+          <input type="file" name="post_file" class="filepond" />
+        </div>
+        <button id="submit-new-post-btn" type="submit" class="submit-button">
+          ADD POST
+        </button>
+      </form>
     </section>
 
     <!-- ALL SCRIPTS -->
@@ -191,6 +182,12 @@
       integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF"
       crossorigin="anonymous"
     ></script>
-    <script type="module" src="js/main.js"></script>
+    <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+    <script src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"></script>
+    <script src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js"></script>
+    <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+    <script src="js/fileUpload.js"></script>
+    <script src="js/fetchGQL.js"></script>
+    <script src="js/main.js"></script>
   </body>
 </html>

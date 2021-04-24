@@ -6,7 +6,7 @@ export default gql`
     manufacturer: Manufacturer
     package_name: String
     description: String
-    hashtags: [String]
+    hashtags: String
     location_as_string: String
     added_by: User
   }
@@ -19,9 +19,8 @@ export default gql`
       manufacturer: ID
       package_name: String
       description: String
-      hashtags: [String]
+      hashtags: String
       location_as_string: String
-      added_by: ID!
     ): Post
   }
 `;
