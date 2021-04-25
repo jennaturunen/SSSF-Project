@@ -4,6 +4,7 @@ const registerForm = document.querySelector('#register-form');
 const logOutBtn = document.querySelector('#logout-btn');
 const addNewPostForm = document.querySelector('#add-new-post-form');
 const personalAccountPosts = document.querySelector('#personal-account-posts');
+const nextPersonalPostsBtn = document.querySelector('#next-personal-posts-btn');
 
 const imageMimeTypes = ['image/jpeg', 'image/png', 'images/gif'];
 
@@ -24,6 +25,7 @@ loginForm.addEventListener('submit', async (evt) => {
     $('#main-pages').show();
     loginForm.reset(); // clear forms input-values
     getPersonalPosts();
+    sessionStorage.setItem('personal_start', 0);
   }
 });
 
@@ -78,6 +80,7 @@ registerForm.addEventListener('submit', async (evt) => {
     $('#main-pages').show();
     registerForm.reset(); // Clear forms input-values
     getPersonalPosts();
+    sessionStorage.setItem('personal_start', 0);
   } else {
     console.log('Register failed');
   }
@@ -87,6 +90,7 @@ registerForm.addEventListener('submit', async (evt) => {
 logOutBtn.addEventListener('click', async (evt) => {
   const response = await logoutUser();
   sessionStorage.removeItem('token');
+  sessionStorage.removeItem('personal_start');
   $('#main-pages').hide();
   $('#login-page').show();
 });
@@ -126,8 +130,9 @@ addNewPostForm.addEventListener('submit', async (evt) => {
 });
 
 // GET MAIN/PERSONAL POSTS
-const getPersonalPosts = async () => {
-  const posts = await getPosts();
+const getPersonalPosts = async (start = 0) => {
+  const params = { start: start };
+  const posts = await getPosts(params);
   console.log('postit', posts);
 
   for (const post of posts) {
@@ -197,5 +202,12 @@ if (sessionStorage.getItem('token')) {
   $('#main-pages').show();
   $('#login-page').hide();
   $('#main-feed-btn').click();
+  sessionStorage.setItem('personal_start', 0);
   getPersonalPosts();
 }
+
+nextPersonalPostsBtn.addEventListener('click', async () => {
+  const start = parseInt(sessionStorage.getItem('personal_start'));
+  getPersonalPosts(start + 10);
+  sessionStorage.setItem('personal_start', start + 10);
+});

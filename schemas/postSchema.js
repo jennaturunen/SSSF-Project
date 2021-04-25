@@ -14,7 +14,7 @@ export default gql`
     post_file_type: String!
   }
   extend type Query {
-    posts: [Post]
+    posts(start: Int = 0, limit: Int = 10): [Post]
     post(id: ID!): Post
   }
   extend type Mutation {

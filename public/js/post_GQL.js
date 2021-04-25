@@ -76,11 +76,11 @@ const getPost = async (params) => {
   return data.post;
 };
 
-const getPosts = async () => {
+const getPosts = async (params) => {
   const query = {
     query: `
-            query {
-              posts {
+            query Variables($start: Int){
+              posts(start: $start) {
                 id
                 manufacturer {
                   id 
@@ -101,6 +101,7 @@ const getPosts = async () => {
                 post_file_type
               }
             }`,
+    variables: params,
   };
   const data = await fetchGraphql(query);
   return data.posts;

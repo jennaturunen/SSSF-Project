@@ -4,9 +4,12 @@ import { AuthenticationError } from 'apollo-server-express';
 export default {
   Query: {
     posts: async (parent, args, { user }) => {
+      console.log('resolver', args);
       if (!user) throw new AuthenticationError('You are not authenticated');
       try {
-        return await Post.find();
+        const start = args.start ? parseInt(args.start) : 0;
+        const limit = 10;
+        return await Post.find().sort({ _id: -1 }).skip(start).limit(limit);
       } catch (e) {
         console.log(`Error while fetching all posts ${e.message}`);
       }
