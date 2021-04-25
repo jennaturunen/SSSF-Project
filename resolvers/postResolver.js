@@ -23,7 +23,6 @@ export default {
   },
   Mutation: {
     addPost: async (parent, args, { user }) => {
-      console.log('postResolver addPost new', args, user);
       if (!user) throw new AuthenticationError('You are not authenticated');
       try {
         args.added_by = user.id;

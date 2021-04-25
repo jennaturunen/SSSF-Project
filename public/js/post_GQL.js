@@ -2,7 +2,7 @@ const addNewPost = async (postData) => {
   console.log('postData params', postData);
   const query = {
     query: `
-           mutation VariableTest($manufacturer: ID, $package_name: String, $description: String, $location_as_string: String, $hashtags: String, $post_file: String!, $post_file_type: String!) {  
+           mutation VariableTest($manufacturer: ID, $package_name: String, $description: String, $location_as_string: String, $hashtags: String, $post_file: String!, $post_file_thumb: String!, $post_file_type: String!) {  
             addPost(
                 manufacturer: $manufacturer,
                 package_name: $package_name,
@@ -10,6 +10,7 @@ const addNewPost = async (postData) => {
                 location_as_string: $location_as_string,
                 hashtags: $hashtags,
                 post_file: $post_file,
+                post_file_thumb: $post_file_thumb,
                 post_file_type: $post_file_type,
               ){
                 id
@@ -28,6 +29,7 @@ const addNewPost = async (postData) => {
                   account_type
                 }
                 post_file
+                post_file_thumb
                 post_file_type
               }
             }`,
@@ -64,6 +66,7 @@ const getPost = async (params) => {
                   account_type
                 }
                 post_file
+                post_file_thumb
                 post_file_type
               }
             }`,

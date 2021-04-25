@@ -10,6 +10,7 @@ export default gql`
     location_as_string: String
     added_by: User
     post_file: String!
+    post_file_thumb: String!
     post_file_type: String!
   }
   extend type Query {
@@ -24,6 +25,7 @@ export default gql`
       hashtags: String
       location_as_string: String
       post_file: String!
+      post_file_thumb: String!
       post_file_type: String!
     ): Post
   }

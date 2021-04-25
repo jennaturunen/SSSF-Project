@@ -93,7 +93,6 @@ logOutBtn.addEventListener('click', async (evt) => {
 addNewPostForm.addEventListener('submit', async (evt) => {
   evt.preventDefault();
   const formData = addNewPostForm.elements;
-  console.log('formData', formData);
   if (!formData.post_file.value) return false;
 
   const fields = {
@@ -105,8 +104,10 @@ addNewPostForm.addEventListener('submit', async (evt) => {
   };
 
   const file = JSON.parse(formData.post_file.value);
+  console.log('file', file);
   if (file !== null && imageMimeTypes.includes(file.type)) {
-    fields.post_file = file.data;
+    fields.post_file = file.data[1].data;
+    fields.post_file_thumb = file.data[2].data;
     fields.post_file_type = file.type;
     console.log('fields', fields);
     const response = await addNewPost(fields);

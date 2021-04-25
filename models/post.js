@@ -20,6 +20,10 @@ const postSchema = new Schema({
     type: String,
     required: true,
   },
+  post_file_thumb: {
+    type: String,
+    required: true,
+  },
   post_file_type: {
     type: String,
     required: true,
