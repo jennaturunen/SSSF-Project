@@ -10,7 +10,6 @@ export default {
       } catch (e) {
         console.log(`Error while fetching all posts ${e.message}`);
       }
-      return Post.find();
     },
     post: async (parent, args, { user }) => {
       if (!user) throw new AuthenticationError('You are not authenticated');

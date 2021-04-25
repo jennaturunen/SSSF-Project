@@ -10,57 +10,48 @@ const entrepreneursFeedPage = document.querySelector(
 const yourProfileBtn = document.querySelector('#your-profile-btn');
 const yourProfilePage = document.querySelector('#your-profile-page');
 
-const toggleNavBtns = [
-  addNewPostBtn,
-  mainFeedBtn,
-  entrepreneursFeedBtn,
-  yourProfileBtn,
-];
-
 addNewPostBtn.addEventListener('click', () => {
   addNewPostPage.style.display = 'flex';
-  const otherPages = [mainFeedPage, entrepreneursFeedPage, yourProfilePage];
-  for (const page of otherPages) {
-    page.style.display = 'none';
-  }
-
-  for (const btn of toggleNavBtns) {
-    btn.classList.toggle('active');
-  }
+  hidePageContent([mainFeedPage, entrepreneursFeedPage, yourProfilePage]);
+  clearActiveClass();
+  addNewPostBtn.classList.toggle('active');
 });
 
 mainFeedBtn.addEventListener('click', () => {
   mainFeedPage.style.display = 'flex';
-  const otherPages = [addNewPostPage, entrepreneursFeedPage, yourProfilePage];
-  for (const page of otherPages) {
-    page.style.display = 'none';
-  }
-
-  for (const btn of toggleNavBtns) {
-    btn.classList.toggle('active');
-  }
+  hidePageContent([addNewPostPage, entrepreneursFeedPage, yourProfilePage]);
+  clearActiveClass();
+  mainFeedBtn.classList.toggle('active');
 });
 
 entrepreneursFeedBtn.addEventListener('click', () => {
   entrepreneursFeedPage.style.display = 'flex';
-  const otherPages = [mainFeedPage, addNewPostPage, yourProfilePage];
-  for (const page of otherPages) {
-    page.style.display = 'none';
-  }
-
-  for (const btn of toggleNavBtns) {
-    btn.classList.toggle('active');
-  }
+  hidePageContent([mainFeedPage, addNewPostPage, yourProfilePage]);
+  clearActiveClass();
+  entrepreneursFeedBtn.classList.toggle('active');
 });
 
 yourProfileBtn.addEventListener('click', () => {
   yourProfilePage.style.display = 'flex';
-  const otherPages = [mainFeedPage, entrepreneursFeedPage, addNewPostPage];
-  for (const page of otherPages) {
+  hidePageContent([mainFeedPage, entrepreneursFeedPage, addNewPostPage]);
+  clearActiveClass();
+  yourProfileBtn.classList.toggle('active');
+});
+
+const clearActiveClass = () => {
+  const allBtns = [
+    addNewPostBtn,
+    mainFeedBtn,
+    entrepreneursFeedBtn,
+    yourProfileBtn,
+  ];
+  for (const btn of allBtns) {
+    btn.classList.remove('active');
+  }
+};
+
+const hidePageContent = (allPages) => {
+  for (const page of allPages) {
     page.style.display = 'none';
   }
-
-  for (const btn of toggleNavBtns) {
-    btn.classList.toggle('active');
-  }
-});
+};

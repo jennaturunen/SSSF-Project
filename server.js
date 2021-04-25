@@ -42,8 +42,14 @@ dotenv.config();
     // );
 
     app.use(express.static('public'));
-    app.use(express.json()); // for parsing application/json
-    app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+    app.use(express.json({ limit: '50mb' })); // for parsing application/json
+    app.use(
+      express.urlencoded({
+        limit: '50mb',
+        extended: true,
+        parameterLimit: 50000,
+      })
+    ); // for parsing application/x-www-form-urlencoded
 
     // Enable cors for all requests
     //app.use(cors());

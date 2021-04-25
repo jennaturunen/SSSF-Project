@@ -10,12 +10,13 @@ FilePond.setOptions({
   imageResizeTargetWidth: 250,
   imageResizeTargetHeight: 250,
   imageCropAspectRatio: 1,
+  imageResizeMode: 'contain',
   imageTransformVariants: {
     thumb_large_: (transforms) => {
       transforms.resize = {
         size: {
-          width: 300,
-          height: 300,
+          width: 640,
+          height: 640,
         },
       };
       return transforms;
@@ -23,8 +24,8 @@ FilePond.setOptions({
     thumb_small_: (transforms) => {
       transforms.resize = {
         size: {
-          width: 150,
-          height: 150,
+          width: 300,
+          height: 300,
         },
       };
       return transforms;
