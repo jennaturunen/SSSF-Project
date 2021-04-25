@@ -4,12 +4,10 @@ const registerForm = document.querySelector('#register-form');
 const logOutBtn = document.querySelector('#logout-btn');
 const addNewPostForm = document.querySelector('#add-new-post-form');
 const personalAccountPosts = document.querySelector('#personal-account-posts');
-// const nappi = document.querySelector('#testi');
-// const contti = document.querySelector('#tokatesti');
 
 const imageMimeTypes = ['image/jpeg', 'image/png', 'images/gif'];
 
-// LOGIN
+// SEND LOGIN FORM
 loginForm.addEventListener('submit', async (evt) => {
   evt.preventDefault();
   const formData = loginForm.elements;
@@ -123,22 +121,11 @@ addNewPostForm.addEventListener('submit', async (evt) => {
     const response = await addNewPost(fields);
     console.log('vika resp', response);
   } else {
-    alert('File is not acceptable');
+    alert('File is not acceptable, only images');
   }
 });
 
-// nappi.addEventListener('click', async (evt) => {
-//   const params = {
-//     id: '60846d72bbdbab26003cbf8e',
-//   };
-//   const post = await getPost(params);
-//   console.log('post', post);
-//   if (post) {
-//     const image = `<div><img src="data:${post.post_file_type};base64,${post.post_file}" /></div>`;
-//     contti.innerHTML += image;
-//   }
-// });
-
+// GET MAIN/PERSONAL POSTS
 const getPersonalPosts = async () => {
   const posts = await getPosts();
   console.log('postit', posts);
@@ -153,16 +140,34 @@ const getPersonalPosts = async () => {
     cardContainer.classList.add('h-100');
 
     const img = document.createElement('img');
-    img.src = `data:${post.post_file_type};base64,${post.post_file}`;
+    img.src = `data:${post.post_file_type};base64,${post.post_file_thumb}`;
     img.alt = post.description;
     img.classList.add('card-img-top');
 
     // open larger image when clicking image, show description and tags
     img.addEventListener('click', () => {
       console.log('klick', post);
-      // const file = url + '/' + pic.filename;
-      // modalImage.style.backgroundImage = 'url(' + file + ')';
-      // modalP.innerHTML = '';
+      openCardModal();
+
+      const bigCard = `
+                      <div class="col card h-100">
+                        <div class="big-img" style="background-image: url(data:${post.post_file_type};base64,${post.post_file})"></div>
+                        <div class="card-body">
+                          <div class="vertical-flex-container">
+                            <span class="card-username">${post.added_by.username}</span>
+                            <span class="card-package-name">${post.location_as_string}</span>
+                          </div>
+                          <div class="vertical-flex-container">
+                            <span class="card-manufacturer">${manufacturer}</span>
+                            <span class="card-package-name">${post.package_name}</span>
+                          </div>
+                          <p>${post.description}</p>
+                          <p class="card-hashtags">${post.hashtags}</p>
+                        </div>
+                      </div>`;
+
+      const modalContent = document.querySelector('#modal-content');
+      modalContent.innerHTML = bigCard;
     });
 
     cardContainer.appendChild(img);
@@ -170,34 +175,27 @@ const getPersonalPosts = async () => {
     const descriptionDiv = document.createElement('div');
     descriptionDiv.classList.add('card-body');
 
-    const card = `<p class="card-username">${post.added_by.username}</p>
-                      <div class="vertical-flex-container">
-                        <span class="card-manufacturer">${manufacturer}</span>
-                        <span class="card-package-name">${post.package_name}</span>
-                      </div>
-                      <p class="card-hashtags">${post.hashtags}</p>
-                    `;
+    const descriptionSection = `
+                                <p class="card-username">${post.added_by.username}</p>
+                                <div class="vertical-flex-container">
+                                  <span class="card-manufacturer">${manufacturer}</span>
+                                  <span class="card-package-name">${post.package_name}</span>
+                                </div>
+                                <p class="card-hashtags">${post.hashtags}</p>
+                              `;
 
-    descriptionDiv.innerHTML += card;
+    descriptionDiv.innerHTML += descriptionSection;
 
     cardContainer.appendChild(descriptionDiv);
-    // const card = `
-    //             <div class="col">
-    //               <div class="card h-100">
-    //                 <img src="data:${post.post_file_type};base64,${post.post_file}" class="card-img-top" alt="${post.description}" />
-    //                 <div class="card-body">
-    //                   <p class="card-username">${post.added_by.username}</p>
-    //                   <div class="vertical-flex-container">
-    //                     <span class="card-manufacturer">${manufacturer}</span>
-    //                     <span class="card-package-name">${post.package_name}</span>
-    //                   </div>
-    //                   <p class="card-hashtags">${post.hashtags}</p>
-    //                 </div>
-    //               </div>
-    //             </div>`;
-
     cardColumn.appendChild(cardContainer);
     personalAccountPosts.appendChild(cardColumn);
-    //personalAccountPosts.innerHTML += card;
   }
 };
+
+// WHEN UPDATING THE PAGE -> CHECK THE TOKEN AND STAY IN FRONT-PAGE
+if (sessionStorage.getItem('token')) {
+  $('#main-pages').show();
+  $('#login-page').hide();
+  $('#main-feed-btn').click();
+  getPersonalPosts();
+}

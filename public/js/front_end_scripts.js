@@ -55,3 +55,15 @@ const hidePageContent = (allPages) => {
     page.style.display = 'none';
   }
 };
+
+// OPENING CARD-MODAL
+const cardModal = document.getElementById('card-modal');
+const openCardModal = () => {
+  cardModal.style.display = 'flex';
+};
+
+// CLOSE CARD-MODAL BY CLICKING CROSS
+const crossModal = document.querySelector('#close-modal');
+crossModal.addEventListener('click', () => {
+  cardModal.style.display = 'none';
+});
