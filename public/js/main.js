@@ -2,6 +2,9 @@
 const loginForm = document.querySelector('#login-form');
 const registerForm = document.querySelector('#register-form');
 const addNewPostForm = document.querySelector('#add-new-post-form');
+const imageMimeTypes = ['image/jpeg', 'image/png', 'images/gif'];
+const nappi = document.querySelector('#testi');
+const contti = document.querySelector('#tokatesti');
 
 // LOGIN
 loginForm.addEventListener('submit', async (evt) => {
@@ -39,6 +42,8 @@ addNewPostForm.addEventListener('submit', async (evt) => {
   evt.preventDefault();
   const formData = addNewPostForm.elements;
   console.log('formData', formData);
+  if (!formData.post_file.value) return false;
+
   const fields = {
     description: formData.description.value,
     manufacturer: formData.manufacturer.value,
@@ -46,6 +51,27 @@ addNewPostForm.addEventListener('submit', async (evt) => {
     location_as_string: formData.location_as_string.value,
     hashtags: formData.hashtags.value,
   };
-  //const response = await addNewPost(fields);
-  console.log('vika resp', response);
+
+  const file = JSON.parse(formData.post_file.value);
+  if (file !== null && imageMimeTypes.includes(file.type)) {
+    fields.post_file = file.data;
+    fields.post_file_type = file.type;
+    console.log('fields', fields);
+    const response = await addNewPost(fields);
+    console.log('vika resp', response);
+  } else {
+    alert('File is not acceptable');
+  }
+});
+
+nappi.addEventListener('click', async (evt) => {
+  const params = {
+    id: '60846d72bbdbab26003cbf8e',
+  };
+  const post = await getPost(params);
+  console.log('post', post);
+  if (post) {
+    const image = `<div><img src="data:${post.post_file_type};base64,${post.post_file}" /></div>`;
+    contti.innerHTML += image;
+  }
 });

@@ -16,6 +16,14 @@ const postSchema = new Schema({
     required: true,
     ref: 'User',
   },
+  post_file: {
+    type: String,
+    required: true,
+  },
+  post_file_type: {
+    type: String,
+    required: true,
+  },
 });
 
 export default mongoose.model('Post', postSchema);
