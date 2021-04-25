@@ -89,7 +89,7 @@
       <!-- NAVIGATION BAR -->
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">BuildersApp</a>
+          <a class="navbar-brand">BuildersApp</a>
           <button
             class="navbar-toggler"
             type="button"
@@ -103,9 +103,14 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-              <a class="nav-link active" aria-current="page">Feed</a>
-              <a class="nav-link">Find entrepreneurs</a>
-              <a class="nav-link">Your profile</a>
+              <a id="main-feed-btn" class="nav-link active" aria-current="page"
+                >Feed</a
+              >
+              <a id="entrepreneurs-feed-btn" class="nav-link"
+                >Find entrepreneurs</a
+              >
+              <a id="add-new-post-btn" class="nav-link">Add new post</a>
+              <a id="your-profile-btn" class="nav-link">Your profile</a>
             </div>
           </div>
           <a id="logout-btn" class="nav-link">Logout</a>
@@ -113,7 +118,7 @@
       </nav>
 
       <!-- MAIN CARDS/PERSONAL ACCOUNTS -->
-      <!-- <div id="main-feed-container" class="container">
+      <div id="main-feed-container" class="container">
         <div class="row">
           <div class="col">FILTERS</div>
           <div class="col-10">
@@ -143,30 +148,87 @@
             </div>
           </div>
         </div>
-      </div> -->
+      </div>
 
-      <form id="add-new-post-form" class="">
-        <h2>ADD NEW POST</h2>
-        <input type="text" name="description" placeholder="Description" />
-        <input type="text" name="manufacturer" placeholder="manufacturer" />
-        <input type="text" name="package_name" placeholder="package_name" />
-        <input type="text" name="hashtags" placeholder="hashtags" />
-        <input
-          type="text"
-          name="location_as_string"
-          placeholder="location_as_string"
-        />
-        <div>
-          <label>Filu</label>
-          <input type="file" name="post_file" class="filepond" />
+      <!-- ENTREPRENEURS CARDS/COMPANY ACCOUNTS -->
+      <div id="entrepreneurs-feed-container" class="container">
+        <div class="row">
+          <div class="col">FILTERS</div>
+          <div class="col-10">
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+              <div class="col">
+                <div class="card h-100">
+                  <img src="..." class="card-img-top" alt="..." />
+                  <div class="card-body">
+                    <h5 class="card-title">ENTREPRENEUR</h5>
+                    <p class="card-text">
+                      This is a longer card with supporting text below as a
+                      natural lead-in to additional content. This content is a
+                      little bit longer.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card h-100">
+                  <img src="..." class="card-img-top" alt="..." />
+                  <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a short card.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <button id="submit-new-post-btn" type="submit" class="submit-button">
-          ADD POST
-        </button>
-      </form>
+      </div>
 
-      <div id="tokatesti"></div>
-      <button id="testi">TESTI</button>
+      <!-- ADD NEW POST PAGE -->
+      <div id="add-new-post-container" class="container">
+        <form id="add-new-post-form" class="">
+          <h2>ADD NEW POST</h2>
+          <input type="text" name="description" placeholder="Description" />
+          <input type="text" name="manufacturer" placeholder="manufacturer" />
+          <input type="text" name="package_name" placeholder="package_name" />
+          <input type="text" name="hashtags" placeholder="hashtags" />
+          <input
+            type="text"
+            name="location_as_string"
+            placeholder="location_as_string"
+          />
+          <div>
+            <label>Filu</label>
+            <input type="file" name="post_file" class="filepond" />
+          </div>
+          <button id="" type="submit" class="submit-button">ADD POST</button>
+        </form>
+      </div>
+
+      <!-- YOUR PROFILE PAGE -->
+      <div id="your-profile-page" class="container">
+        <form id="" class="">
+          <h2>YoOUR PROFILE</h2>
+          <input type="text" name="description" placeholder="Description" />
+          <input type="text" name="manufacturer" placeholder="manufacturer" />
+          <input type="text" name="package_name" placeholder="package_name" />
+          <input type="text" name="hashtags" placeholder="hashtags" />
+          <input
+            type="text"
+            name="location_as_string"
+            placeholder="location_as_string"
+          />
+          <div>
+            <label>Filu</label>
+            <input type="file" name="post_file" class="filepond" />
+          </div>
+          <button id="submit-new-post-btn" type="submit" class="submit-button">
+            ADD POST
+          </button>
+        </form>
+      </div>
+
+      <!-- <div id="tokatesti"></div>
+      <button id="testi">TESTI</button> -->
     </section>
 
     <!-- ALL SCRIPTS -->
@@ -194,6 +256,7 @@
     <script src="js/fetchGQL.js"></script>
     <script src="js/user_GQL.js"></script>
     <script src="js/post_GQL.js"></script>
+    <script src="js/front_end_scripts.js"></script>
     <script src="js/main.js"></script>
   </body>
 </html>

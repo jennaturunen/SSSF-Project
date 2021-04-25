@@ -3,9 +3,10 @@ const loginForm = document.querySelector('#login-form');
 const registerForm = document.querySelector('#register-form');
 const logOutBtn = document.querySelector('#logout-btn');
 const addNewPostForm = document.querySelector('#add-new-post-form');
+// const nappi = document.querySelector('#testi');
+// const contti = document.querySelector('#tokatesti');
+
 const imageMimeTypes = ['image/jpeg', 'image/png', 'images/gif'];
-const nappi = document.querySelector('#testi');
-const contti = document.querySelector('#tokatesti');
 
 // LOGIN
 loginForm.addEventListener('submit', async (evt) => {
@@ -117,14 +118,14 @@ addNewPostForm.addEventListener('submit', async (evt) => {
   }
 });
 
-nappi.addEventListener('click', async (evt) => {
-  const params = {
-    id: '60846d72bbdbab26003cbf8e',
-  };
-  const post = await getPost(params);
-  console.log('post', post);
-  if (post) {
-    const image = `<div><img src="data:${post.post_file_type};base64,${post.post_file}" /></div>`;
-    contti.innerHTML += image;
-  }
-});
+// nappi.addEventListener('click', async (evt) => {
+//   const params = {
+//     id: '60846d72bbdbab26003cbf8e',
+//   };
+//   const post = await getPost(params);
+//   console.log('post', post);
+//   if (post) {
+//     const image = `<div><img src="data:${post.post_file_type};base64,${post.post_file}" /></div>`;
+//     contti.innerHTML += image;
+//   }
+// });
