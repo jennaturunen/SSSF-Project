@@ -1,6 +1,7 @@
 'use strict';
 const loginForm = document.querySelector('#login-form');
 const registerForm = document.querySelector('#register-form');
+const logOutBtn = document.querySelector('#logout-btn');
 const addNewPostForm = document.querySelector('#add-new-post-form');
 const imageMimeTypes = ['image/jpeg', 'image/png', 'images/gif'];
 const nappi = document.querySelector('#testi');
@@ -29,12 +30,63 @@ loginForm.addEventListener('submit', async (evt) => {
 registerForm.addEventListener('submit', async (evt) => {
   evt.preventDefault();
   const formData = registerForm.elements;
-  console.log('formData', formData);
 
-  // Hide login and show frontpage
-  $('#login-page').hide();
-  $('#main-pages').show();
-  registerForm.reset(); // Clear forms input-values
+  if (formData.username.value.length < 3) {
+    alert('Username has to have at least 3 characters');
+    return false;
+  }
+
+  const passwordRegex = new RegExp('(?=.*[A-Z]).{8,}');
+  const testResult = passwordRegex.test(formData.password.value);
+  if (!testResult) {
+    alert('Password has have at least one uppercase and 8 characters');
+    return false;
+  }
+
+  if (formData.password.value !== formData.password_second.value) {
+    alert('Passwords do not match');
+    return false;
+  }
+
+  if (!formData.personal.checked && !formData.company.checked) {
+    alert('Choose the account type');
+    return false;
+  }
+
+  if (formData.personal.checked && formData.company.checked) {
+    alert('Only one account type is allowed to select');
+    return false;
+  }
+
+  const accountType = formData.personal.checked ? 'Personal' : 'Company';
+
+  const fields = {
+    username: formData.username.value,
+    password: formData.password.value,
+    password_second: formData.password_second.value,
+    full_name: formData.full_name.value,
+    account_type: accountType,
+  };
+
+  // Create new user and login automatically
+  const registerUser = await sendRegisterForm(fields);
+  if (registerUser.token) {
+    // Save token, hide login and show front page
+    sessionStorage.setItem('token', registerUser.token);
+    $('#login-page').hide();
+    $('#main-pages').show();
+    registerForm.reset(); // Clear forms input-values
+  } else {
+    console.log('Register failed');
+  }
+});
+
+// LOGOUT
+logOutBtn.addEventListener('click', async (evt) => {
+  const response = await logoutUser();
+  sessionStorage.removeItem('token');
+  $('#main-pages').hide();
+  $('#login-page').show();
 });
 
 // ADD NEW POST FORM

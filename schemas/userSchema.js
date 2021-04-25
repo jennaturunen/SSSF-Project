@@ -11,11 +11,14 @@ export default gql`
   extend type Query {
     user(id: ID!): User
     login(username: String!, password: String!): User
+    checkUsername(username: String!): User
+    logout: User
   }
   extend type Mutation {
     registerUser(
       username: String!
       password: String!
+      password_second: String!
       full_name: String
       account_type: String!
     ): User

@@ -64,7 +64,7 @@
           <!-- HAS TO MATCH TO THE FIRST PASSWORD -->
           <input
             type="password"
-            name="passwordSecond"
+            name="password_second"
             pattern="(?=.*[A-Z]).{8,}"
             placeholder="Enter password again"
             required
@@ -108,7 +108,7 @@
               <a class="nav-link">Your profile</a>
             </div>
           </div>
-          <a class="nav-link">Logout</a>
+          <a id="logout-btn" class="nav-link">Logout</a>
         </div>
       </nav>
 
@@ -191,6 +191,8 @@
     <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
     <script src="js/fileUpload.js"></script>
     <script src="js/fetchGQL.js"></script>
+    <script src="js/user_GQL.js"></script>
+    <script src="js/post_GQL.js"></script>
     <script src="js/main.js"></script>
   </body>
 </html>

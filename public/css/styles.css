@@ -61,6 +61,10 @@
   justify-content: space-around;
 }
 
+#main-pages {
+  display: none;
+}
+
 #main-feed-container {
   margin-top: 20px;
 }

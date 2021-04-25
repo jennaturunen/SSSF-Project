@@ -36,4 +36,9 @@ const checkAuth = (req, res) => {
   });
 };
 
-export { login, checkAuth };
+const logout = (req, res) => {
+  req.logout();
+  res.json({ message: 'logout' }); // something has to be sent
+};
+
+export { login, checkAuth, logout };
