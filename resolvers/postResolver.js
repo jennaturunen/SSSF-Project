@@ -43,5 +43,15 @@ export default {
         console.log(`Error occurred while adding new post ${e.message}`);
       }
     },
+    deletePost: async (parent, args, { user }, info) => {
+      try {
+        if (!user) throw new AuthenticationError('You are not authenticated');
+        const id = args.id;
+        await Post.findByIdAndDelete(id);
+        return id;
+      } catch (e) {
+        console.log(`Error occured while deleting the post ${e.message}`);
+      }
+    },
   },
 };

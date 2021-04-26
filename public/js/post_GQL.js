@@ -151,3 +151,16 @@ const getUsersPosts = async (params) => {
   const data = await fetchGraphql(query);
   return data.postsByUser;
 };
+
+const deletePost = async (params) => {
+  const query = {
+    query: `
+            mutation Variables($id: ID!) {
+              deletePost(id: $id)
+              }
+            `,
+    variables: params,
+  };
+  const data = await fetchGraphql(query);
+  return data.deletePost;
+};

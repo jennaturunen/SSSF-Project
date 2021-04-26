@@ -281,7 +281,7 @@ const getUserDataAndPosts = async () => {
     deleteButton.innerHTML = 'Delete';
     deleteButton.classList.add('submit-button');
     deleteButton.addEventListener('click', () => {
-      deleteUsersPost(post);
+      deleteUsersPost(post, cardColumn);
     });
 
     btnContainer.appendChild(modifyButton);
@@ -300,6 +300,9 @@ const openModifyPostForm = async (post) => {
   modalContent.innerHTML = modifyForm;
 };
 
-const deleteUsersPost = async (post) => {
-  console.log('delete', post);
+const deleteUsersPost = async (post, card) => {
+  const deletedPost = await deletePost({ id: post.id });
+  if (deletedPost) {
+    card.remove();
+  }
 };
