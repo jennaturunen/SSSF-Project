@@ -179,3 +179,15 @@ body {
   width: 100%;
   height: 200px;
 }
+
+#update-post-form {
+  justify-content: space-evenly;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  background: #efefef;
+}
+
+#update-post-form input {
+  width: 80%;
+}

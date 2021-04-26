@@ -29,6 +29,14 @@ export default gql`
       post_file_thumb: String!
       post_file_type: String!
     ): Post
+    modifyPost(
+      id: ID!
+      manufacturer: ID
+      package_name: String
+      description: String
+      hashtags: String
+      location_as_string: String
+    ): Post
     deletePost(id: ID!): ID
   }
 `;

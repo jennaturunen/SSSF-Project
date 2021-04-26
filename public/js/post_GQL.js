@@ -164,3 +164,34 @@ const deletePost = async (params) => {
   const data = await fetchGraphql(query);
   return data.deletePost;
 };
+
+const updatePost = async (params) => {
+  const query = {
+    query: `
+            mutation Variables($id: ID!, $manufacturer: ID, $package_name: String, $description: String, $hashtags: String, $location_as_string: String){
+              modifyPost(    
+                id: $id,
+                  manufacturer: $manufacturer, 
+                  package_name: $package_name,
+                  description: $description,
+                  location_as_string: $location_as_string,
+                  hashtags: $hashtags
+              )
+              {
+                  id
+                  manufacturer {
+                    id
+                    name
+                  }
+                  package_name
+                  description
+                  location_as_string
+                  hashtags
+                }
+              }
+            `,
+    variables: params,
+  };
+  const data = await fetchGraphql(query);
+  return data.modifyPost;
+};

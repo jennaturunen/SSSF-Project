@@ -274,7 +274,7 @@ const getUserDataAndPosts = async () => {
     modifyButton.innerHTML = 'Modify';
     modifyButton.classList.add('submit-button');
     modifyButton.addEventListener('click', () => {
-      openModifyPostForm(post);
+      openModifyPostForm(post.id);
     });
 
     const deleteButton = document.createElement('button');
@@ -291,15 +291,42 @@ const getUserDataAndPosts = async () => {
   }
 };
 
-// OPEN MODIFY POST FORM
-const openModifyPostForm = async (post) => {
-  console.log('mofdd', post);
+// OPEN MODIFY POST FORM WITH POST VALUES FILLED
+const openModifyPostForm = async (id) => {
+  const post = await getPost({ id: id });
   openCardModal();
-  const modifyForm = `<div>Muokkaa</div>`;
+  const modifyForm = `<form id="update-post-form" class="flex-column-container top-margin custom-form">
+                        <h4 class="top-margin">Modify Post</h4>
+                        <input type="text"name="description" placeholder="Write Description" value="${post.description}"/>
+                        <input type="text"name="package_name" placeholder="Package name and details" value="${post.package_name}"/>
+                        <input type="text"name="hashtags" placeholder="Hashtags and keywords" value="${post.hashtags}"/>
+                        <input type="text"name="location_as_string" placeholder="Location (Region, Postcode...)" value="${post.location_as_string}"/>
+                        <button type="submit" class="submit-button top-margin">Update Post</button>
+                      </form>
+                    `;
   const modalContent = document.querySelector('#modal-content');
   modalContent.innerHTML = modifyForm;
+
+  const updatePostForm = document.querySelector('#update-post-form');
+  updatePostForm.addEventListener('submit', async (evt) => {
+    evt.preventDefault();
+    const formData = updatePostForm.elements;
+    const fields = {
+      id: post.id,
+      description: formData.description.value,
+      package_name: formData.package_name.value,
+      location_as_string: formData.location_as_string.value,
+      hashtags: formData.hashtags.value,
+    };
+
+    const updatedPost = await updatePost(fields);
+    if (updatePost) {
+      $('#card-modal').hide();
+    }
+  });
 };
 
+// DELETE POST AND REMOVE FROM DOM
 const deleteUsersPost = async (post, card) => {
   const deletedPost = await deletePost({ id: post.id });
   if (deletedPost) {

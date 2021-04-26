@@ -43,6 +43,22 @@ export default {
         console.log(`Error occurred while adding new post ${e.message}`);
       }
     },
+    modifyPost: async (parents, args, { user }, info) => {
+      try {
+        if (!user) throw new AuthenticationError('You are not authenticated');
+
+        const postId = args.id;
+        const postData = { ...args };
+
+        const updatePost = await Post.findByIdAndUpdate(postId, postData, {
+          new: true,
+        });
+
+        return updatePost.save();
+      } catch (e) {
+        console.log(`Error occured while updating the station ${e.message}`);
+      }
+    },
     deletePost: async (parent, args, { user }, info) => {
       try {
         if (!user) throw new AuthenticationError('You are not authenticated');
