@@ -14,14 +14,16 @@ export default {
     manufacturers: async (parent, args, { user }) => {
       if (!user) throw new AuthenticationError('You are not authenticated');
       try {
-        return await Manufacturer.find();
+        const res = await Manufacturer.find();
+        return res;
       } catch (e) {
         console.log(`Error occurred while fetching manufacturers ${e.message}`);
       }
     },
   },
   Mutation: {
-    addManufacturer: async (parent, args) => {
+    addManufacturer: async (parent, args, { user }) => {
+      if (!user) throw new AuthenticationError('You are not authenticated');
       try {
         const newManufacturer = new Manufacturer(args);
         const result = await newManufacturer.save();

@@ -26,7 +26,8 @@ export default {
       if (!user) {
         throw new AuthenticationError('You are not authenticated');
       }
-      return await User.findById({ _id: args.id }).exec();
+      const id = args.id ? args.id : user.id;
+      return await User.findById({ _id: id }).exec();
     },
     checkUsername: async (parent, args) => {
       return await User.findOne({ username: args.username });
@@ -78,6 +79,22 @@ export default {
         return await newUser.save();
       } catch (e) {
         console.log(`Error occurred while registering new user ${e.message}`);
+      }
+    },
+    modifyUser: async (parents, args, { user }, info) => {
+      try {
+        if (!user) {
+          throw new AuthenticationError('You are not authenticated');
+        }
+
+        const userData = { ...args };
+        const updatedUser = await User.findByIdAndUpdate(user._id, userData, {
+          new: true,
+        });
+
+        return updatedUser.save();
+      } catch (e) {
+        console.log(`Error occured while updating the user ${e.message}`);
       }
     },
   },

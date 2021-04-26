@@ -171,19 +171,36 @@
 
       <!-- ADD NEW POST PAGE -->
       <div id="add-new-post-container" class="container">
-        <form id="add-new-post-form" class="">
+        <form id="add-new-post-form" class="add-new-post-form custom-form">
           <h2>ADD NEW POST</h2>
-          <input type="text" name="description" placeholder="Description" />
-          <input type="text" name="manufacturer" placeholder="manufacturer" />
-          <input type="text" name="package_name" placeholder="package_name" />
-          <input type="text" name="hashtags" placeholder="hashtags" />
+          <input
+            type="text"
+            name="description"
+            placeholder="Write Description"
+          />
+          <select
+            class="form-control"
+            id="manufacturer-select"
+            name="manufacturer"
+            placeholder="Select manufacturer"
+          ></select>
+          <input
+            type="text"
+            name="package_name"
+            placeholder="Package name and details"
+          />
+          <input
+            type="text"
+            name="hashtags"
+            placeholder="Hashtags and keywords"
+          />
           <input
             type="text"
             name="location_as_string"
-            placeholder="location_as_string"
+            placeholder="Location (Region, Postcode...)"
           />
           <div>
-            <label>Filu</label>
+            <label>Add image-file (required)</label>
             <input type="file" name="post_file" class="filepond" />
           </div>
           <button id="" type="submit" class="submit-button">ADD POST</button>
@@ -192,23 +209,27 @@
 
       <!-- YOUR PROFILE PAGE -->
       <div id="your-profile-page" class="container">
-        <form id="" class="">
-          <h2>YoOUR PROFILE</h2>
-          <input type="text" name="description" placeholder="Description" />
-          <input type="text" name="manufacturer" placeholder="manufacturer" />
-          <input type="text" name="package_name" placeholder="package_name" />
-          <input type="text" name="hashtags" placeholder="hashtags" />
+        <form
+          id="modify-user-info"
+          name="modify-user-info"
+          class="custom-form flex-column-container"
+        >
+          <h2>YOUR PROFILE</h2>
+          <label for="name">Full name</label>
+          <input type="text" name="full_name" placeholder="Full name" />
+          <label for="name">Account type</label>
           <input
             type="text"
-            name="location_as_string"
-            placeholder="location_as_string"
+            name="account_type"
+            placeholder="Account type"
+            readonly
           />
-          <div>
-            <label>Filu</label>
-            <input type="file" name="post_file" class="filepond" />
-          </div>
-          <button id="submit-new-post-btn" type="submit" class="submit-button">
-            ADD POST
+          <button
+            id="submit-modify-user-btn"
+            type="submit"
+            class="submit-button"
+          >
+            UPDATE YOUR INFO
           </button>
         </form>
       </div>

@@ -73,3 +73,42 @@ const logoutUser = async () => {
 
   return await fetchGraphql(logout);
 };
+
+const modifyUserData = async (params) => {
+  const query = {
+    query: `
+            mutation Variables($id: ID, $full_name: String){
+              modifyUser(    
+                id: $id,
+                full_name: $full_name
+                )
+                {
+                  id
+                  username
+                  full_name
+                  account_type
+                }
+              }
+            `,
+    variables: params,
+  };
+  const data = await fetchGraphql(query);
+  return data.modifyUser;
+};
+
+const getUserData = async () => {
+  const query = {
+    query: `
+            query {
+              user {
+                id
+                username
+                full_name
+                account_type
+              }
+            }
+            `,
+  };
+  const data = await fetchGraphql(query);
+  return data.user;
+};

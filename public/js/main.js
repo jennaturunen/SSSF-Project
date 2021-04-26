@@ -5,6 +5,7 @@ const logOutBtn = document.querySelector('#logout-btn');
 const addNewPostForm = document.querySelector('#add-new-post-form');
 const personalAccountPosts = document.querySelector('#personal-account-posts');
 const nextPersonalPostsBtn = document.querySelector('#next-personal-posts-btn');
+const modifyUserBtn = document.querySelector('#submit-modify-user-btn');
 
 const imageMimeTypes = ['image/jpeg', 'image/png', 'images/gif'];
 
@@ -206,8 +207,46 @@ if (sessionStorage.getItem('token')) {
   getPersonalPosts();
 }
 
+// PAGINATION FOR PERSONAL POSTS-FEED
 nextPersonalPostsBtn.addEventListener('click', async () => {
   const start = parseInt(sessionStorage.getItem('personal_start'));
   getPersonalPosts(start + 10);
   sessionStorage.setItem('personal_start', start + 10);
 });
+
+// LOAD MANUFACTURER OPTIONS TO SELECT
+const fetchManufacturersToSelect = async () => {
+  const manufacturers = await getManufacturers();
+  if (manufacturers && manufacturers.length > 0) {
+    const manufacturerSelect = document.getElementById('manufacturer-select');
+    const empty = new Option('', '');
+    manufacturerSelect.options.add(empty);
+    for (const mf of manufacturers) {
+      const manufacturer = new Option(mf.name, mf.id);
+      manufacturerSelect.options.add(manufacturer);
+    }
+  }
+};
+
+// UPDATE CURRENT USERS INFO
+modifyUserBtn.addEventListener('click', async (evt) => {
+  evt.preventDefault();
+  const modifyUserForm = document.querySelector('#modify-user-info');
+  const formData = modifyUserForm.elements;
+  const fields = {
+    full_name: formData.full_name.value,
+  };
+  const newUserData = await modifyUserData(fields);
+  if (newUserData) {
+    console.log('User updated');
+  }
+});
+
+// GET CURRENT USERS INFO
+const getUserDataAndPosts = async () => {
+  const currentUserData = await getUserData();
+  // Set form values
+  const modifyUserForm = document.querySelector('#modify-user-info');
+  modifyUserForm.elements['full_name'].value = currentUserData.full_name;
+  modifyUserForm.elements['account_type'].value = currentUserData.account_type;
+};

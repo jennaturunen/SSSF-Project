@@ -106,3 +106,17 @@ const getPosts = async (params) => {
   const data = await fetchGraphql(query);
   return data.posts;
 };
+
+const getManufacturers = async () => {
+  const query = {
+    query: `
+            query {
+              manufacturers {
+                id
+                name
+              }
+            }`,
+  };
+  const data = await fetchGraphql(query);
+  return data.manufacturers;
+};

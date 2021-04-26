@@ -9,7 +9,7 @@ export default gql`
     token: String
   }
   extend type Query {
-    user(id: ID!): User
+    user(id: ID): User
     login(username: String!, password: String!): User
     checkUsername(username: String!): User
     logout: User
@@ -22,5 +22,6 @@ export default gql`
       full_name: String
       account_type: String!
     ): User
+    modifyUser(id: ID, full_name: String): User
   }
 `;

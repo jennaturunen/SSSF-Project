@@ -15,6 +15,12 @@ addNewPostBtn.addEventListener('click', () => {
   hidePageContent([mainFeedPage, entrepreneursFeedPage, yourProfilePage]);
   clearActiveClass();
   addNewPostBtn.classList.toggle('active');
+
+  // Load manufacturer options
+  const manufacturerSelect = document.getElementById('manufacturer-select');
+  if (manufacturerSelect.options.length === 0) {
+    fetchManufacturersToSelect();
+  }
 });
 
 mainFeedBtn.addEventListener('click', () => {
@@ -36,6 +42,7 @@ yourProfileBtn.addEventListener('click', () => {
   hidePageContent([mainFeedPage, entrepreneursFeedPage, addNewPostPage]);
   clearActiveClass();
   yourProfileBtn.classList.toggle('active');
+  getUserDataAndPosts();
 });
 
 const clearActiveClass = () => {
