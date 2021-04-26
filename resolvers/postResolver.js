@@ -22,6 +22,14 @@ export default {
         console.log(`Error while fetching post ${e.message}`);
       }
     },
+    postsByUser: async (parent, args, { user }) => {
+      if (!user) throw new AuthenticationError('You are not authenticated');
+      try {
+        return await Post.find({ added_by: args.id }).sort({ _id: -1 });
+      } catch (e) {
+        console.log(`Error while fetching all users posts ${e.message}`);
+      }
+    },
   },
   Mutation: {
     addPost: async (parent, args, { user }) => {

@@ -58,6 +58,10 @@ body {
   align-items: center;
 }
 
+.space-evenly {
+  justify-content: space-evenly;
+}
+
 .account-type {
   width: 50%;
 }
@@ -97,6 +101,10 @@ body {
   margin-bottom: 10px;
   font-size: 0.8rem;
   font-weight: bold;
+}
+
+.card-manufacturer {
+  margin-bottom: 10px;
 }
 
 .card-package-name {
@@ -162,4 +170,12 @@ body {
   padding: 10px;
   border-radius: 4px;
   border: none;
+}
+
+.small-posts {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 100%;
+  height: 200px;
 }

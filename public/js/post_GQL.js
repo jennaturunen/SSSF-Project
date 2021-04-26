@@ -120,3 +120,34 @@ const getManufacturers = async () => {
   const data = await fetchGraphql(query);
   return data.manufacturers;
 };
+
+const getUsersPosts = async (params) => {
+  const query = {
+    query: `
+            query Variables($id: ID!){
+              postsByUser(id: $id) {
+                id
+                manufacturer {
+                  id
+                  name
+                }
+                package_name
+                description
+                hashtags
+                location_as_string
+                post_file
+                post_file_thumb
+                post_file_type
+                added_by {
+                  id
+                  username
+                  account_type
+                }
+              }
+            }
+            `,
+    variables: params,
+  };
+  const data = await fetchGraphql(query);
+  return data.postsByUser;
+};

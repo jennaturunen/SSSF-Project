@@ -16,6 +16,7 @@ export default gql`
   extend type Query {
     posts(start: Int = 0, limit: Int = 10): [Post]
     post(id: ID!): Post
+    postsByUser(id: ID!): [Post]
   }
   extend type Mutation {
     addPost(

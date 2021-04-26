@@ -208,13 +208,13 @@
       </div>
 
       <!-- YOUR PROFILE PAGE -->
-      <div id="your-profile-page" class="container">
+      <div id="your-profile-page" class="container flex-column-container">
         <form
           id="modify-user-info"
           name="modify-user-info"
           class="custom-form flex-column-container"
         >
-          <h2>YOUR PROFILE</h2>
+          <h2 class="top-margin">YOUR PROFILE</h2>
           <label for="name">Full name</label>
           <input type="text" name="full_name" placeholder="Full name" />
           <label for="name">Account type</label>
@@ -227,11 +227,19 @@
           <button
             id="submit-modify-user-btn"
             type="submit"
-            class="submit-button"
+            class="submit-button top-margin"
           >
             UPDATE YOUR INFO
           </button>
         </form>
+
+        <!-- Users posts -->
+        <div class="row">
+          <div class="col">
+            <h3>YOUR POSTS</h3>
+            <div id="own-posts" class="row row-cols-1 row-cols-md-3 g-4"></div>
+          </div>
+        </div>
       </div>
 
       <!-- OPENING CARD MODAL -->

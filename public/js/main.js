@@ -6,6 +6,7 @@ const addNewPostForm = document.querySelector('#add-new-post-form');
 const personalAccountPosts = document.querySelector('#personal-account-posts');
 const nextPersonalPostsBtn = document.querySelector('#next-personal-posts-btn');
 const modifyUserBtn = document.querySelector('#submit-modify-user-btn');
+const userPostsContainer = document.querySelector('#own-posts');
 
 const imageMimeTypes = ['image/jpeg', 'image/png', 'images/gif'];
 
@@ -249,4 +250,56 @@ const getUserDataAndPosts = async () => {
   const modifyUserForm = document.querySelector('#modify-user-info');
   modifyUserForm.elements['full_name'].value = currentUserData.full_name;
   modifyUserForm.elements['account_type'].value = currentUserData.account_type;
+
+  // Get posts and create cards for each
+  const usersPosts = await getUsersPosts({ id: currentUserData.id });
+  console.log(usersPosts);
+
+  for (const post of usersPosts) {
+    const cardColumn = document.createElement('div');
+    cardColumn.classList.add('col');
+
+    const imgContainer = document.createElement('div');
+    imgContainer.innerHTML = `<div class="small-posts" style="background-image: url(data:${post.post_file_type};base64,${post.post_file})"></div>`;
+    cardColumn.append(imgContainer);
+
+    const btnContainer = document.createElement('div');
+    btnContainer.classList.add(
+      'vertical-flex-container',
+      'space-evenly',
+      'top-margin'
+    );
+
+    const modifyButton = document.createElement('button');
+    modifyButton.innerHTML = 'Modify';
+    modifyButton.classList.add('submit-button');
+    modifyButton.addEventListener('click', () => {
+      openModifyPostForm(post);
+    });
+
+    const deleteButton = document.createElement('button');
+    deleteButton.innerHTML = 'Delete';
+    deleteButton.classList.add('submit-button');
+    deleteButton.addEventListener('click', () => {
+      deleteUsersPost(post);
+    });
+
+    btnContainer.appendChild(modifyButton);
+    btnContainer.appendChild(deleteButton);
+    cardColumn.appendChild(btnContainer);
+    userPostsContainer.appendChild(cardColumn);
+  }
+};
+
+// OPEN MODIFY POST FORM
+const openModifyPostForm = async (post) => {
+  console.log('mofdd', post);
+  openCardModal();
+  const modifyForm = `<div>Muokkaa</div>`;
+  const modalContent = document.querySelector('#modal-content');
+  modalContent.innerHTML = modifyForm;
+};
+
+const deleteUsersPost = async (post) => {
+  console.log('delete', post);
 };
