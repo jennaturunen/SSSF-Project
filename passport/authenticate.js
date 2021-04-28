@@ -37,8 +37,14 @@ const checkAuth = (req, res) => {
 };
 
 const logout = (req, res) => {
-  req.logout();
-  res.json({ message: 'logout' }); // something has to be sent
+  return new Promise((resolve, reject) => {
+    try {
+      req.logout();
+      resolve({ message: 'logout' });
+    } catch (e) {
+      reject({ message: e.message });
+    }
+  })(req, res);
 };
 
 export { login, checkAuth, logout };
