@@ -9,7 +9,12 @@ export default {
       try {
         const start = args.start ? parseInt(args.start) : 0;
         const limit = 10;
-        return await Post.find().sort({ _id: -1 }).skip(start).limit(limit);
+        const queryParams = {};
+        if (args.manufacturer) queryParams.manufacturer = args.manufacturer;
+        return await Post.find(queryParams)
+          .sort({ _id: -1 })
+          .skip(start)
+          .limit(limit);
       } catch (e) {
         console.log(`Error while fetching all posts ${e.message}`);
       }

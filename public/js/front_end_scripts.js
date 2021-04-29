@@ -16,10 +16,16 @@ addNewPostBtn.addEventListener('click', () => {
   clearActiveClass();
   addNewPostBtn.classList.toggle('active');
 
-  // Load manufacturer options
+  // Set manufacturer options
   const manufacturerSelect = document.getElementById('manufacturer-select');
   if (manufacturerSelect.options.length === 0) {
-    fetchManufacturersToSelect();
+    const empty = new Option('', '');
+    manufacturerSelect.options.add(empty);
+
+    for (const mf of allManufacturers) {
+      const manufacturer = new Option(mf.name, mf.id);
+      manufacturerSelect.options.add(manufacturer);
+    }
   }
 });
 

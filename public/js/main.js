@@ -7,8 +7,12 @@ const personalAccountPosts = document.querySelector('#personal-account-posts');
 const nextPersonalPostsBtn = document.querySelector('#next-personal-posts-btn');
 const modifyUserBtn = document.querySelector('#submit-modify-user-btn');
 const userPostsContainer = document.querySelector('#own-posts');
+const manufacturerFilterInput = document.querySelector(
+  '#search-by-manufacturer'
+);
 
 const imageMimeTypes = ['image/jpeg', 'image/png', 'images/gif'];
+let allManufacturers = [];
 
 // SEND LOGIN FORM
 loginForm.addEventListener('submit', async (evt) => {
@@ -28,6 +32,7 @@ loginForm.addEventListener('submit', async (evt) => {
     loginForm.reset(); // clear forms input-values
     getPersonalPosts();
     sessionStorage.setItem('personal_start', 0);
+    fetchManufacturersToSelect();
   }
 });
 
@@ -83,6 +88,7 @@ registerForm.addEventListener('submit', async (evt) => {
     registerForm.reset(); // Clear forms input-values
     getPersonalPosts();
     sessionStorage.setItem('personal_start', 0);
+    fetchManufacturersToSelect();
   } else {
     console.log('Register failed');
   }
@@ -200,25 +206,17 @@ const addPostToMainFeed = (post, addNewPost = null) => {
     : personalAccountPosts.appendChild(cardColumn);
 };
 
-// GET MAIN POSTS
-const getPersonalPosts = async (start = 0) => {
-  const params = { start: start };
+// GET MAIN POSTS, CLEAR OLD POSTS BEFORE ADDING NEW ONES
+const getPersonalPosts = async (start = 0, manufacturer = null) => {
+  const params = { start: start, manufacturer: manufacturer };
   const posts = await getPosts(params);
   console.log('postit', posts);
+  personalAccountPosts.innerHTML = '';
 
   for (const post of posts) {
     addPostToMainFeed(post);
   }
 };
-
-// WHEN UPDATING THE PAGE -> CHECK THE TOKEN AND STAY IN FRONT-PAGE
-if (sessionStorage.getItem('token')) {
-  $('#main-pages').show();
-  $('#login-page').hide();
-  $('#main-feed-btn').click();
-  sessionStorage.setItem('personal_start', 0);
-  getPersonalPosts();
-}
 
 // PAGINATION FOR PERSONAL POSTS-FEED
 nextPersonalPostsBtn.addEventListener('click', async () => {
@@ -227,16 +225,19 @@ nextPersonalPostsBtn.addEventListener('click', async () => {
   sessionStorage.setItem('personal_start', start + 10);
 });
 
-// LOAD MANUFACTURER OPTIONS TO SELECT
+// LOAD MANUFACTURER OPTIONS TO ADD POST-SELECT AND FILTER-SELECT
 const fetchManufacturersToSelect = async () => {
-  const manufacturers = await getManufacturers();
-  if (manufacturers && manufacturers.length > 0) {
-    const manufacturerSelect = document.getElementById('manufacturer-select');
+  if (allManufacturers.length === 0) {
+    allManufacturers = await getManufacturers();
+  }
+  console.log('manu', allManufacturers);
+  if (allManufacturers && allManufacturers.length > 0) {
     const empty = new Option('', '');
-    manufacturerSelect.options.add(empty);
-    for (const mf of manufacturers) {
+    manufacturerFilterInput.options.add(empty);
+
+    for (const mf of allManufacturers) {
       const manufacturer = new Option(mf.name, mf.id);
-      manufacturerSelect.options.add(manufacturer);
+      manufacturerFilterInput.options.add(manufacturer);
     }
   }
 };
@@ -352,3 +353,19 @@ const deleteUsersPost = async (post, card) => {
     card.remove();
   }
 };
+
+// FILTER POSTS BY MANUFACTURER
+manufacturerFilterInput.addEventListener('change', async (evt) => {
+  const value = manufacturerFilterInput.value;
+  getPersonalPosts(0, value);
+});
+
+// WHEN UPDATING THE PAGE -> CHECK THE TOKEN AND STAY IN FRONT-PAGE
+if (sessionStorage.getItem('token')) {
+  $('#main-pages').show();
+  $('#login-page').hide();
+  $('#main-feed-btn').click();
+  sessionStorage.setItem('personal_start', 0);
+  getPersonalPosts();
+  fetchManufacturersToSelect();
+}
