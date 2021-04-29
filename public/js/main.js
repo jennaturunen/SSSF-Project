@@ -126,37 +126,36 @@ addNewPostForm.addEventListener('submit', async (evt) => {
     console.log('fields', fields);
     const response = await addNewPost(fields);
     console.log('vika resp', response);
+
+    addPostToMainFeed(response, true);
+    if (userPostsContainer.hasChildNodes()) {
+      showUsersOwnPosts(response, true);
+    }
   } else {
     alert('File is not acceptable, only images');
   }
 });
 
-// GET MAIN/PERSONAL POSTS
-const getPersonalPosts = async (start = 0) => {
-  const params = { start: start };
-  const posts = await getPosts(params);
-  console.log('postit', posts);
+const addPostToMainFeed = (post, addNewPost = null) => {
+  const manufacturer = post.manufacturer ? post.manufacturer.name + ',' : '';
 
-  for (const post of posts) {
-    const manufacturer = post.manufacturer ? post.manufacturer.name + ',' : '';
+  const cardColumn = document.createElement('div');
+  cardColumn.classList.add('col');
+  const cardContainer = document.createElement('div');
+  cardContainer.classList.add('card');
+  cardContainer.classList.add('h-100');
 
-    const cardColumn = document.createElement('div');
-    cardColumn.classList.add('col');
-    const cardContainer = document.createElement('div');
-    cardContainer.classList.add('card');
-    cardContainer.classList.add('h-100');
+  const img = document.createElement('img');
+  img.src = `data:${post.post_file_type};base64,${post.post_file_thumb}`;
+  img.alt = post.description;
+  img.classList.add('card-img-top');
 
-    const img = document.createElement('img');
-    img.src = `data:${post.post_file_type};base64,${post.post_file_thumb}`;
-    img.alt = post.description;
-    img.classList.add('card-img-top');
+  // open larger image when clicking image, show description and tags
+  img.addEventListener('click', () => {
+    console.log('klick', post);
+    openCardModal();
 
-    // open larger image when clicking image, show description and tags
-    img.addEventListener('click', () => {
-      console.log('klick', post);
-      openCardModal();
-
-      const bigCard = `
+    const bigCard = `
                       <div class="col card h-100">
                         <div class="big-img" style="background-image: url(data:${post.post_file_type};base64,${post.post_file})"></div>
                         <div class="card-body">
@@ -173,16 +172,16 @@ const getPersonalPosts = async (start = 0) => {
                         </div>
                       </div>`;
 
-      const modalContent = document.querySelector('#modal-content');
-      modalContent.innerHTML = bigCard;
-    });
+    const modalContent = document.querySelector('#modal-content');
+    modalContent.innerHTML = bigCard;
+  });
 
-    cardContainer.appendChild(img);
+  cardContainer.appendChild(img);
 
-    const descriptionDiv = document.createElement('div');
-    descriptionDiv.classList.add('card-body');
+  const descriptionDiv = document.createElement('div');
+  descriptionDiv.classList.add('card-body');
 
-    const descriptionSection = `
+  const descriptionSection = `
                                 <p class="card-username">${post.added_by.username}</p>
                                 <div class="vertical-flex-container">
                                   <span class="card-manufacturer">${manufacturer}</span>
@@ -191,11 +190,23 @@ const getPersonalPosts = async (start = 0) => {
                                 <p class="card-hashtags">${post.hashtags}</p>
                               `;
 
-    descriptionDiv.innerHTML += descriptionSection;
+  descriptionDiv.innerHTML += descriptionSection;
 
-    cardContainer.appendChild(descriptionDiv);
-    cardColumn.appendChild(cardContainer);
-    personalAccountPosts.appendChild(cardColumn);
+  cardContainer.appendChild(descriptionDiv);
+  cardColumn.appendChild(cardContainer);
+  addNewPost
+    ? personalAccountPosts.prepend(cardColumn)
+    : personalAccountPosts.appendChild(cardColumn);
+};
+
+// GET MAIN POSTS
+const getPersonalPosts = async (start = 0) => {
+  const params = { start: start };
+  const posts = await getPosts(params);
+  console.log('postit', posts);
+
+  for (const post of posts) {
+    addPostToMainFeed(post);
   }
 };
 
@@ -256,39 +267,45 @@ const getUserDataAndPosts = async () => {
   console.log(usersPosts);
 
   for (const post of usersPosts) {
-    const cardColumn = document.createElement('div');
-    cardColumn.classList.add('col');
-
-    const imgContainer = document.createElement('div');
-    imgContainer.innerHTML = `<div class="small-posts" style="background-image: url(data:${post.post_file_type};base64,${post.post_file})"></div>`;
-    cardColumn.append(imgContainer);
-
-    const btnContainer = document.createElement('div');
-    btnContainer.classList.add(
-      'vertical-flex-container',
-      'space-evenly',
-      'top-margin'
-    );
-
-    const modifyButton = document.createElement('button');
-    modifyButton.innerHTML = 'Modify';
-    modifyButton.classList.add('submit-button');
-    modifyButton.addEventListener('click', () => {
-      openModifyPostForm(post.id);
-    });
-
-    const deleteButton = document.createElement('button');
-    deleteButton.innerHTML = 'Delete';
-    deleteButton.classList.add('submit-button');
-    deleteButton.addEventListener('click', () => {
-      deleteUsersPost(post, cardColumn);
-    });
-
-    btnContainer.appendChild(modifyButton);
-    btnContainer.appendChild(deleteButton);
-    cardColumn.appendChild(btnContainer);
-    userPostsContainer.appendChild(cardColumn);
+    showUsersOwnPosts(post);
   }
+};
+
+const showUsersOwnPosts = (post, addedNewPost = null) => {
+  const cardColumn = document.createElement('div');
+  cardColumn.classList.add('col');
+
+  const imgContainer = document.createElement('div');
+  imgContainer.innerHTML = `<div class="small-posts" style="background-image: url(data:${post.post_file_type};base64,${post.post_file})"></div>`;
+  cardColumn.append(imgContainer);
+
+  const btnContainer = document.createElement('div');
+  btnContainer.classList.add(
+    'vertical-flex-container',
+    'space-evenly',
+    'top-margin'
+  );
+
+  const modifyButton = document.createElement('button');
+  modifyButton.innerHTML = 'Modify';
+  modifyButton.classList.add('submit-button');
+  modifyButton.addEventListener('click', () => {
+    openModifyPostForm(post.id);
+  });
+
+  const deleteButton = document.createElement('button');
+  deleteButton.innerHTML = 'Delete';
+  deleteButton.classList.add('submit-button');
+  deleteButton.addEventListener('click', () => {
+    deleteUsersPost(post, cardColumn);
+  });
+
+  btnContainer.appendChild(modifyButton);
+  btnContainer.appendChild(deleteButton);
+  cardColumn.appendChild(btnContainer);
+  addedNewPost
+    ? userPostsContainer.prepend(cardColumn)
+    : userPostsContainer.appendChild(cardColumn);
 };
 
 // OPEN MODIFY POST FORM WITH POST VALUES FILLED
@@ -320,7 +337,7 @@ const openModifyPostForm = async (id) => {
     };
 
     const updatedPost = await updatePost(fields);
-    if (updatePost) {
+    if (updatedPost) {
       $('#card-modal').hide();
     }
   });
