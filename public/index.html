@@ -119,8 +119,28 @@
 
       <!-- MAIN CARDS/PERSONAL ACCOUNTS -->
       <div id="main-feed-container" class="container">
-        <div class="row">
-          <div class="col">FILTERS</div>
+        <div class="vertical-flex-container">
+          <div class="col filter-section">
+            <h3>FILTERS</h3>
+            <div class="flex-column-container top-margin">
+              <label class="top-margin" for="search-by-username"
+                >Search by username</label
+              >
+              <input
+                type="text"
+                id="search-by-username"
+                placeholder="Type at least 3 characters"
+              />
+              <label class="top-margin" for="search-by-keywords"
+                >Search by keywords</label
+              >
+              <input
+                type="text"
+                id="search-by-keywords"
+                placeholder="Type at least 3 characters"
+              />
+            </div>
+          </div>
           <div class="col-10">
             <div
               id="personal-account-posts"

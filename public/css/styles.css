@@ -191,3 +191,7 @@ body {
 #update-post-form input {
   width: 80%;
 }
+
+.filter-section {
+  height: 100vh;
+}
