@@ -42,7 +42,9 @@ yourProfileBtn.addEventListener('click', () => {
   hidePageContent([mainFeedPage, entrepreneursFeedPage, addNewPostPage]);
   clearActiveClass();
   yourProfileBtn.classList.toggle('active');
-  getUserDataAndPosts();
+  if (!userPostsContainer.hasChildNodes()) {
+    getUserDataAndPosts();
+  }
 });
 
 const clearActiveClass = () => {

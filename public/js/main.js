@@ -136,6 +136,7 @@ addNewPostForm.addEventListener('submit', async (evt) => {
   }
 });
 
+// CREATE CARDS/POSTS FOR MAIN FEED
 const addPostToMainFeed = (post, addNewPost = null) => {
   const manufacturer = post.manufacturer ? post.manufacturer.name + ',' : '';
 
@@ -271,6 +272,7 @@ const getUserDataAndPosts = async () => {
   }
 };
 
+// CREATE CARDS FOR USERS OWN POSTS
 const showUsersOwnPosts = (post, addedNewPost = null) => {
   const cardColumn = document.createElement('div');
   cardColumn.classList.add('col');
