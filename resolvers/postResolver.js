@@ -11,7 +11,10 @@ export default {
         const limit = 10;
         const queryParams = {};
         if (args.manufacturer) queryParams.manufacturer = args.manufacturer;
+        const hashtags = args.keyword ? args.keyword : '';
+
         return await Post.find(queryParams)
+          .regex('hashtags', new RegExp(hashtags, 'i'))
           .sort({ _id: -1 })
           .skip(start)
           .limit(limit);

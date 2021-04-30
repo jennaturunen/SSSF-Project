@@ -14,7 +14,7 @@ export default gql`
     post_file_type: String!
   }
   extend type Query {
-    posts(start: Int = 0, manufacturer: ID): [Post]
+    posts(start: Int = 0, manufacturer: ID, keyword: String): [Post]
     post(id: ID!): Post
     postsByUser(id: ID!): [Post]
   }

@@ -10,6 +10,7 @@ const userPostsContainer = document.querySelector('#own-posts');
 const manufacturerFilterInput = document.querySelector(
   '#search-by-manufacturer'
 );
+const hashtagsFilterInput = document.querySelector('#search-by-keywords');
 
 const imageMimeTypes = ['image/jpeg', 'image/png', 'images/gif'];
 let allManufacturers = [];
@@ -207,8 +208,18 @@ const addPostToMainFeed = (post, addNewPost = null) => {
 };
 
 // GET MAIN POSTS, CLEAR OLD POSTS BEFORE ADDING NEW ONES
-const getPersonalPosts = async (start = 0, manufacturer = null) => {
-  const params = { start: start, manufacturer: manufacturer };
+const getPersonalPosts = async (start = 0) => {
+  // Check filter values
+  const manufacturerValue = manufacturerFilterInput.value;
+  const hashtagValue =
+    hashtagsFilterInput.value.length < 3 ? '' : hashtagsFilterInput.value;
+
+  const params = {
+    start: start,
+    manufacturer: manufacturerValue,
+    keyword: hashtagValue,
+  };
+
   const posts = await getPosts(params);
   console.log('postit', posts);
   personalAccountPosts.innerHTML = '';
@@ -356,8 +367,12 @@ const deleteUsersPost = async (post, card) => {
 
 // FILTER POSTS BY MANUFACTURER
 manufacturerFilterInput.addEventListener('change', async (evt) => {
-  const value = manufacturerFilterInput.value;
-  getPersonalPosts(0, value);
+  getPersonalPosts();
+});
+
+// FILTER BY HASHTAGS
+hashtagsFilterInput.addEventListener('input', (evt) => {
+  getPersonalPosts();
 });
 
 // WHEN UPDATING THE PAGE -> CHECK THE TOKEN AND STAY IN FRONT-PAGE

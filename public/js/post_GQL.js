@@ -79,8 +79,8 @@ const getPost = async (params) => {
 const getPosts = async (params) => {
   const query = {
     query: `
-            query Variables($start: Int, $manufacturer: ID){
-              posts(start: $start, manufacturer: $manufacturer) {
+            query Variables($start: Int, $manufacturer: ID, $keyword: String){
+              posts(start: $start, manufacturer: $manufacturer, keyword: $keyword) {
                 id
                 manufacturer {
                   id 
