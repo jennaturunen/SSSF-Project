@@ -82,3 +82,15 @@ const crossModal = document.querySelector('#close-modal');
 crossModal.addEventListener('click', () => {
   cardModal.style.display = 'none';
 });
+
+// OPENING COMMENT-MODAL
+const commentModal = document.getElementById('comment-modal');
+const openCommentModal = () => {
+  commentModal.style.display = 'flex';
+};
+
+// CLOSE COMMENT-MODAL BY CLICKING CROSS
+const crossCommentModal = document.querySelector('#close-comment-modal');
+crossCommentModal.addEventListener('click', () => {
+  commentModal.style.display = 'none';
+});

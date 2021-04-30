@@ -267,6 +267,19 @@
         <span id="close-modal">X</span>
         <div id="modal-content" class="modal-content"></div>
       </div>
+
+      <!-- ADD COMMENT MODAL -->
+      <div id="comment-modal" class="modal">
+        <span id="close-comment-modal">X</span>
+        <div class="modal-content comment-modal">
+          <form class="custom-form flex-column-container full-height">
+            <label for="name">Write comment</label>
+            <input type="text" name="comment" placeholder="Write something" />
+            <input type="text" name="linked_to_post" hidden="true" />
+            <button class="submit-button">Add comment</button>
+          </form>
+        </div>
+      </div>
     </section>
 
     <!-- ALL SCRIPTS -->

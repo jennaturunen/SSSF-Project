@@ -185,7 +185,9 @@ const addPostToMainFeed = (post, addNewPost = null) => {
                           </div>
                           <p>${post.description}</p>
                           <p class="card-hashtags">${post.hashtags}</p>
-                          <p class="comments-header">Comments:</p>
+                          <div id="comment-section" class="vertical-flex-container space-between">
+                            <p class="comments-header">Comments:</p>
+                          </div
                           <div class="flex-column-container">
                             ${comments}
                           </div>
@@ -194,6 +196,15 @@ const addPostToMainFeed = (post, addNewPost = null) => {
 
     const modalContent = document.querySelector('#modal-content');
     modalContent.innerHTML = bigCard;
+
+    const commentSection = document.querySelector('#comment-section');
+    const addNewCommentBtn = document.createElement('button');
+    addNewCommentBtn.classList.add('submit-button');
+    addNewCommentBtn.textContent = 'Add comment';
+    addNewCommentBtn.addEventListener('click', () => {
+      openCommentModal();
+    });
+    commentSection.appendChild(addNewCommentBtn);
   });
 
   cardContainer.appendChild(img);
