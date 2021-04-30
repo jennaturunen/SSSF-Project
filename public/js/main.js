@@ -208,7 +208,7 @@ const addPostToMainFeed = (post, addNewPost = null) => {
 };
 
 // GET MAIN POSTS, CLEAR OLD POSTS BEFORE ADDING NEW ONES
-const getPersonalPosts = async (start = 0) => {
+const getPersonalPosts = async (start = 0, loadMore = false) => {
   // Check filter values
   const manufacturerValue = manufacturerFilterInput.value;
   const hashtagValue =
@@ -222,7 +222,7 @@ const getPersonalPosts = async (start = 0) => {
 
   const posts = await getPosts(params);
   console.log('postit', posts);
-  personalAccountPosts.innerHTML = '';
+  if (!loadMore) personalAccountPosts.innerHTML = '';
 
   for (const post of posts) {
     addPostToMainFeed(post);
@@ -232,7 +232,7 @@ const getPersonalPosts = async (start = 0) => {
 // PAGINATION FOR PERSONAL POSTS-FEED
 nextPersonalPostsBtn.addEventListener('click', async () => {
   const start = parseInt(sessionStorage.getItem('personal_start'));
-  getPersonalPosts(start + 10);
+  getPersonalPosts(start + 10, true);
   sessionStorage.setItem('personal_start', start + 10);
 });
 

@@ -8,7 +8,6 @@ export default {
       if (!user) throw new AuthenticationError('You are not authenticated');
       try {
         const start = args.start ? parseInt(args.start) : 0;
-        const limit = 10;
         const queryParams = {};
         if (args.manufacturer) queryParams.manufacturer = args.manufacturer;
         const hashtags = args.keyword ? args.keyword : '';
@@ -17,7 +16,7 @@ export default {
           .regex('hashtags', new RegExp(hashtags, 'i'))
           .sort({ _id: -1 })
           .skip(start)
-          .limit(limit);
+          .limit(10);
       } catch (e) {
         console.log(`Error while fetching all posts ${e.message}`);
       }
