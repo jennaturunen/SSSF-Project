@@ -12,6 +12,7 @@ export default gql`
     post_file: String!
     post_file_thumb: String!
     post_file_type: String!
+    comments: [Comment]
   }
   extend type Query {
     posts(start: Int = 0, manufacturer: ID, keyword: String): [Post]

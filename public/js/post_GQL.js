@@ -68,6 +68,14 @@ const getPost = async (params) => {
                 post_file
                 post_file_thumb
                 post_file_type
+                comments {
+                  id
+                  comment
+                  added_by {
+                    id
+                    username
+                  }
+                }
               }
             }`,
     variables: params,
@@ -99,6 +107,14 @@ const getPosts = async (params) => {
                 post_file
                 post_file_thumb
                 post_file_type
+                comments {
+                  id
+                  comment
+                  added_by {
+                    id
+                    username
+                  }
+                }
               }
             }`,
     variables: params,

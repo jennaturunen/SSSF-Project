@@ -28,6 +28,10 @@ const postSchema = new Schema({
     type: String,
     required: true,
   },
+  comments: {
+    type: mongoose.Types.ObjectId,
+    ref: 'Comment',
+  },
 });
 
 export default mongoose.model('Post', postSchema);

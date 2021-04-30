@@ -131,8 +131,8 @@ body {
 }
 
 .modal-content {
-  width: 70%;
-  height: 80%;
+  width: 80%;
+  height: 85%;
   left: 45%;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -194,4 +194,9 @@ body {
 
 .filter-section {
   height: 100vh;
+}
+
+.comments-header {
+  margin-top: 10px;
+  margin-bottom: 0;
 }

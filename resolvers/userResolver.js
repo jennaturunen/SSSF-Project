@@ -107,4 +107,13 @@ export default {
       }
     },
   },
+  Comment: {
+    added_by: (parent, args) => {
+      try {
+        return User.findById(parent.added_by);
+      } catch (e) {
+        console.log('Error while fetching the added_by user', e.message);
+      }
+    },
+  },
 };

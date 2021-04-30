@@ -162,6 +162,14 @@ const addPostToMainFeed = (post, addNewPost = null) => {
   img.addEventListener('click', () => {
     console.log('klick', post);
     openCardModal();
+    let comments = '';
+
+    for (const comment of post.comments) {
+      comments += `<div>
+                    <span class="card-username">${comment.added_by.username}:</span>  
+                    <span class="card-package-name">${comment.comment}</span>
+                  </div>`;
+    }
 
     const bigCard = `
                       <div class="col card h-100">
@@ -177,6 +185,10 @@ const addPostToMainFeed = (post, addNewPost = null) => {
                           </div>
                           <p>${post.description}</p>
                           <p class="card-hashtags">${post.hashtags}</p>
+                          <p class="comments-header">Comments:</p>
+                          <div class="flex-column-container">
+                            ${comments}
+                          </div>
                         </div>
                       </div>`;
 

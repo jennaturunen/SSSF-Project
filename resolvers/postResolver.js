@@ -77,4 +77,13 @@ export default {
       }
     },
   },
+  Comment: {
+    linked_to_post(parent) {
+      try {
+        return Post.findById(parent.linked_to_post);
+      } catch (e) {
+        console.log('Error while fetching post', e.message);
+      }
+    },
+  },
 };
