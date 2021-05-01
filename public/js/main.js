@@ -11,6 +11,7 @@ const manufacturerFilterInput = document.querySelector(
   '#search-by-manufacturer'
 );
 const hashtagsFilterInput = document.querySelector('#search-by-keywords');
+const addCommentForm = document.querySelector('#add-comment-form');
 
 const imageMimeTypes = ['image/jpeg', 'image/png', 'images/gif'];
 let allManufacturers = [];
@@ -185,10 +186,10 @@ const addPostToMainFeed = (post, addNewPost = null) => {
                           </div>
                           <p>${post.description}</p>
                           <p class="card-hashtags">${post.hashtags}</p>
-                          <div id="comment-section" class="vertical-flex-container space-between">
+                          <div id="comment-header" class="vertical-flex-container space-between">
                             <p class="comments-header">Comments:</p>
-                          </div
-                          <div class="flex-column-container">
+                          </div>
+                          <div id="comment-section" class="flex-column-container">
                             ${comments}
                           </div>
                         </div>
@@ -197,14 +198,15 @@ const addPostToMainFeed = (post, addNewPost = null) => {
     const modalContent = document.querySelector('#modal-content');
     modalContent.innerHTML = bigCard;
 
-    const commentSection = document.querySelector('#comment-section');
+    const commentHeader = document.querySelector('#comment-header');
     const addNewCommentBtn = document.createElement('button');
     addNewCommentBtn.classList.add('submit-button');
     addNewCommentBtn.textContent = 'Add comment';
     addNewCommentBtn.addEventListener('click', () => {
       openCommentModal();
+      addCommentForm.elements['linked_to_post'].value = post.id;
     });
-    commentSection.appendChild(addNewCommentBtn);
+    commentHeader.appendChild(addNewCommentBtn);
   });
 
   cardContainer.appendChild(img);
@@ -264,7 +266,7 @@ const fetchManufacturersToSelect = async () => {
   if (allManufacturers.length === 0) {
     allManufacturers = await getManufacturers();
   }
-  console.log('manu', allManufacturers);
+
   if (allManufacturers && allManufacturers.length > 0) {
     const empty = new Option('', '');
     manufacturerFilterInput.options.add(empty);
@@ -407,3 +409,29 @@ if (sessionStorage.getItem('token')) {
   getPersonalPosts();
   fetchManufacturersToSelect();
 }
+
+// ADD NEW COMMENT
+addCommentForm.addEventListener('submit', async (evt) => {
+  evt.preventDefault();
+  const formData = addCommentForm.elements;
+  if (!formData.comment.value && !formData.linked_to_post.value) return false;
+
+  const fields = {
+    comment: formData.comment.value,
+    linked_to_post: formData.linked_to_post.value,
+  };
+
+  const response = await addNewComment(fields);
+  if (response) {
+    $('#comment-modal').hide();
+    addCommentForm.reset();
+
+    const newComment = `<div>
+                          <span class="card-username">${response.added_by.username}:</span>  
+                          <span class="card-package-name">${response.comment}</span>
+                        </div>`;
+
+    const commentSection = document.querySelector('#comment-section');
+    commentSection.innerHTML += newComment;
+  }
+});

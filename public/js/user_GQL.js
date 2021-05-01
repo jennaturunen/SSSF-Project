@@ -1,3 +1,5 @@
+'use strict';
+
 const checkUsername = async (username) => {
   const uniqueUsername = {
     query: `

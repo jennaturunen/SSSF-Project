@@ -1,3 +1,5 @@
+'use strict';
+
 const addNewPost = async (postData) => {
   console.log('postData params', postData);
   const query = {
