@@ -160,12 +160,13 @@ const addPostToMainFeed = (post, addNewPost = null) => {
   img.classList.add('card-img-top');
 
   // open larger image when clicking image, show description and tags
-  img.addEventListener('click', () => {
-    console.log('klick', post);
+  img.addEventListener('click', async () => {
+    const fetchedPost = await getPost({ id: post.id });
+    console.log('klick', fetchedPost);
     openCardModal();
     let comments = '';
 
-    for (const comment of post.comments) {
+    for (const comment of fetchedPost.comments) {
       comments += `<div>
                     <span class="card-username">${comment.added_by.username}:</span>  
                     <span class="card-package-name">${comment.comment}</span>
@@ -174,18 +175,18 @@ const addPostToMainFeed = (post, addNewPost = null) => {
 
     const bigCard = `
                       <div class="col card h-100">
-                        <div class="big-img" style="background-image: url(data:${post.post_file_type};base64,${post.post_file})"></div>
+                        <div class="big-img" style="background-image: url(data:${fetchedPost.post_file_type};base64,${fetchedPost.post_file})"></div>
                         <div class="card-body">
                           <div class="vertical-flex-container">
-                            <span class="card-username">${post.added_by.username}</span>
-                            <span class="card-package-name">${post.location_as_string}</span>
+                            <span class="card-username">${fetchedPost.added_by.username}</span>
+                            <span class="card-package-name">${fetchedPost.location_as_string}</span>
                           </div>
                           <div class="vertical-flex-container">
                             <span class="card-manufacturer">${manufacturer}</span>
-                            <span class="card-package-name">${post.package_name}</span>
+                            <span class="card-package-name">${fetchedPost.package_name}</span>
                           </div>
-                          <p>${post.description}</p>
-                          <p class="card-hashtags">${post.hashtags}</p>
+                          <p>${fetchedPost.description}</p>
+                          <p class="card-hashtags">${fetchedPost.hashtags}</p>
                           <div id="comment-header" class="vertical-flex-container space-between">
                             <p class="comments-header">Comments:</p>
                           </div>
