@@ -164,9 +164,30 @@
 
       <!-- ENTREPRENEURS CARDS/COMPANY ACCOUNTS -->
       <div id="entrepreneurs-feed-container" class="container">
-        <div class="row">
-          <div class="">FILTERS</div>
-          <div class="map-container">
+        <div class="vertical-flex-container">
+          <div class="col filter-section">
+            <h3>FILTERS</h3>
+            <div class="flex-column-container top-margin">
+              <label class="top-margin" for="search-by-company"
+                >Search by manufacturer</label
+              >
+              <input
+                type="text"
+                id="search-by-company"
+                placeholder="Type at least 3 characters"
+              />
+              <label class="top-margin" for="search-by-company-keywords"
+                >Search by keywords</label
+              >
+              <input
+                type="text"
+                id="search-by-company-keywords"
+                placeholder="Type at least 3 characters"
+              />
+            </div>
+          </div>
+
+          <div class="col-10 map-container">
             <div id="main-map"></div>
           </div>
         </div>

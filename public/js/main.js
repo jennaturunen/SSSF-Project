@@ -299,12 +299,12 @@ modifyUserBtn.addEventListener('click', async (evt) => {
 // GET CURRENT USERS INFO
 const getUserDataAndPosts = async () => {
   const currentUserData = await getUserData();
-  console.log(currentUserData);
   // Set form values
   const modifyUserForm = document.querySelector('#modify-user-info');
   modifyUserForm.elements['full_name'].value = currentUserData.full_name;
   modifyUserForm.elements['account_type'].value = currentUserData.account_type;
 
+  // Show current location, center map to marker
   if (currentUserData.location.coordinates.length > 0) {
     if (companyLocation.length === 0) {
       companyLocation = new L.Marker([

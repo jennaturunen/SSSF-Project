@@ -13,12 +13,14 @@ const yourProfilePage = document.querySelector('#your-profile-page');
 let mainMap = '';
 let usersMap = '';
 let companyLocation = '';
+let allMarkers = [];
 
 const attribution =
   '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 
 const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 
+// SHOW ADD NEW POST PAGE
 addNewPostBtn.addEventListener('click', () => {
   addNewPostPage.style.display = 'flex';
   hidePageContent([mainFeedPage, entrepreneursFeedPage, yourProfilePage]);
@@ -38,6 +40,7 @@ addNewPostBtn.addEventListener('click', () => {
   }
 });
 
+// SHOW MAIN FEED
 mainFeedBtn.addEventListener('click', () => {
   mainFeedPage.style.display = 'flex';
   hidePageContent([addNewPostPage, entrepreneursFeedPage, yourProfilePage]);
@@ -45,7 +48,8 @@ mainFeedBtn.addEventListener('click', () => {
   mainFeedBtn.classList.toggle('active');
 });
 
-entrepreneursFeedBtn.addEventListener('click', () => {
+// SHOW MAP OF ENTREPRENEURS
+entrepreneursFeedBtn.addEventListener('click', async () => {
   entrepreneursFeedPage.style.display = 'flex';
   hidePageContent([mainFeedPage, addNewPostPage, yourProfilePage]);
   clearActiveClass();
@@ -57,8 +61,25 @@ entrepreneursFeedBtn.addEventListener('click', () => {
     const tiles = L.tileLayer(tileUrl, { attribution });
     tiles.addTo(mainMap);
   }
+
+  if (allMarkers.length === 0) {
+    const bounds = new L.LatLngBounds();
+    const allCompanies = await loadCompaniesWithLocation();
+    console.log('kaikä', allCompanies);
+    for (const comp of allCompanies) {
+      const marker = new L.Marker([
+        comp.location.coordinates[1],
+        comp.location.coordinates[0],
+      ]).addTo(mainMap);
+      allMarkers.push(marker);
+      bounds.extend(marker.getLatLng());
+    }
+
+    mainMap.fitBounds(bounds);
+  }
 });
 
+// SHOW YOUR PROFILE PAGE
 yourProfileBtn.addEventListener('click', () => {
   yourProfilePage.style.display = 'flex';
   hidePageContent([mainFeedPage, entrepreneursFeedPage, addNewPostPage]);
@@ -87,6 +108,7 @@ yourProfileBtn.addEventListener('click', () => {
   }
 });
 
+// Functions to handle navigation style changes
 const clearActiveClass = () => {
   const allBtns = [
     addNewPostBtn,

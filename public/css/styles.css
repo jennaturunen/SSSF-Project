@@ -78,7 +78,8 @@ body {
 }
 
 #main-feed-container,
-#your-profile-page {
+#your-profile-page,
+#entrepreneurs-feed-container {
   margin-top: 20px;
   margin-bottom: 30px;
 }
@@ -248,7 +249,10 @@ input:disabled {
   width: 40vw;
 }
 
-#main-map,
+#main-map {
+  height: 70vh;
+}
+
 #company-user-map {
   height: 400px;
 }

@@ -39,6 +39,16 @@ export default {
         throw new AuthenticationError('Logout failed');
       }
     },
+    usersWithLocation: async (parent, args, { user }) => {
+      try {
+        if (!user) throw new AuthenticationError('You are not authenticated');
+        return await User.find({
+          'location.coordinates': { $exists: true, $ne: [] },
+        });
+      } catch (e) {
+        console.log('Error while fetching users', e.message);
+      }
+    },
   },
   Mutation: {
     registerUser: async (parent, args, { req, res }) => {

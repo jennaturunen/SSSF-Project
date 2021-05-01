@@ -121,3 +121,22 @@ const getUserData = async () => {
   const data = await fetchGraphql(query);
   return data.user;
 };
+
+const loadCompaniesWithLocation = async () => {
+  const query = {
+    query: `
+            query {
+              usersWithLocation {
+                id
+                username
+                full_name
+                location {
+                  coordinates
+                }
+              }
+            }
+            `,
+  };
+  const data = await fetchGraphql(query);
+  return data.usersWithLocation;
+};
