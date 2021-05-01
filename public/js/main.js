@@ -534,6 +534,12 @@ const showCompanyMarkers = async () => {
       comp.location.coordinates[0],
     ]).addTo(layerGroup);
 
+    const popupContent = `<div>
+                            <p class="card-username">${comp.username}</p>
+                            <p>${comp.description}</p>
+                          </div>`;
+    marker.bindPopup(popupContent);
+
     allMarkers.push(marker);
     bounds.extend(marker.getLatLng());
   }
