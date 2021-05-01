@@ -255,8 +255,13 @@ input:disabled {
 
 #company-user-map {
   height: 400px;
+  opacity: 0;
 }
 
 #modify-user-info {
   width: 40vw;
+}
+
+#set-company-location-btn {
+  display: none;
 }

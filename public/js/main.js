@@ -304,6 +304,12 @@ modifyUserForm.addEventListener('submit', async (evt) => {
 // GET CURRENT USERS INFO
 const getUserDataAndPosts = async () => {
   const currentUserData = await getUserData();
+
+  if (currentUserData.account_type === 'Company') {
+    $('#set-company-location-btn').show();
+    $('#company-user-map').css('opacity', '1');
+  }
+
   // Set form values
   const modifyUserForm = document.querySelector('#modify-user-info');
   modifyUserForm.elements['full_name'].value = currentUserData.full_name;

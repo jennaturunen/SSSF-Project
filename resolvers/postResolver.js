@@ -1,5 +1,6 @@
 import Post from '../models/post.js';
 import { AuthenticationError } from 'apollo-server-express';
+import Comment from '../models/comment.js';
 
 export default {
   Query: {
@@ -70,6 +71,13 @@ export default {
       try {
         if (!user) throw new AuthenticationError('You are not authenticated');
         const id = args.id;
+        const comments = await Comment.find({ linked_to_post: id });
+        if (comments && comments.length > 0) {
+          for (const comment of comments) {
+            await Comment.findByIdAndDelete(comment._id);
+          }
+        }
+
         await Post.findByIdAndDelete(id);
         return id;
       } catch (e) {
