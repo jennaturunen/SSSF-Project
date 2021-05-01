@@ -125,11 +125,11 @@ const getUserData = async () => {
   return data.user;
 };
 
-const loadCompaniesWithLocation = async () => {
+const loadCompaniesWithLocation = async (params) => {
   const query = {
     query: `
-            query {
-              usersWithLocation {
+            query Variables($description: String, $username: String){
+              usersWithLocation(description: $description, username: $username) {
                 id
                 username
                 full_name
@@ -140,6 +140,7 @@ const loadCompaniesWithLocation = async () => {
               }
             }
             `,
+    variables: params,
   };
   const data = await fetchGraphql(query);
   return data.usersWithLocation;

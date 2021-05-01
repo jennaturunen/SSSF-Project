@@ -22,7 +22,7 @@ export default gql`
     login(username: String!, password: String!): User
     checkUsername(username: String!): User
     logout: User
-    usersWithLocation: [User]
+    usersWithLocation(description: String, username: String): [User]
   }
   extend type Mutation {
     registerUser(

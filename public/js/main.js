@@ -15,6 +15,10 @@ const addCommentForm = document.querySelector('#add-comment-form');
 const setCompanyLocationBtn = document.querySelector(
   '#set-company-location-btn'
 );
+const companyNameFilterInput = document.querySelector('#search-by-company');
+const companyDescriptionFilterInput = document.querySelector(
+  '#search-by-company-description'
+);
 
 const imageMimeTypes = ['image/jpeg', 'image/png', 'images/gif'];
 let allManufacturers = [];
@@ -491,6 +495,51 @@ setCompanyLocationBtn.addEventListener('click', async (evt) => {
     console.log('Newe location', newLocationData);
   }
 });
+
+// FILTER COMPANIES BY USERNAME
+companyNameFilterInput.addEventListener('input', async (evt) => {
+  showCompanyMarkers();
+});
+
+companyDescriptionFilterInput.addEventListener('input', async (evt) => {
+  showCompanyMarkers();
+});
+
+// CREATE MARKERS TO THE MAIN ENTREPRENEURS MAP
+const showCompanyMarkers = async () => {
+  // Clear old markers
+  layerGroup.clearLayers();
+  allMarkers = [];
+
+  // Check filter values
+  const username =
+    companyNameFilterInput.value.length < 3 ? '' : companyNameFilterInput.value;
+  const description =
+    companyDescriptionFilterInput.value.length < 3
+      ? ''
+      : companyDescriptionFilterInput.value;
+
+  const params = {
+    username,
+    description,
+  };
+
+  const allCompanies = await loadCompaniesWithLocation(params);
+  console.log('kaiki', allCompanies);
+  // Create markers, set zoom to show them all
+  const bounds = new L.LatLngBounds();
+  for (const comp of allCompanies) {
+    const marker = new L.Marker([
+      comp.location.coordinates[1],
+      comp.location.coordinates[0],
+    ]).addTo(layerGroup);
+
+    allMarkers.push(marker);
+    bounds.extend(marker.getLatLng());
+  }
+
+  if (allCompanies.length > 0) mainMap.fitBounds(bounds, { maxZoom: 10 });
+};
 
 // WHEN UPDATING THE PAGE -> CHECK THE TOKEN AND STAY IN FRONT-PAGE
 if (sessionStorage.getItem('token')) {

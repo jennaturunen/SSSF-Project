@@ -42,9 +42,18 @@ export default {
     usersWithLocation: async (parent, args, { user }) => {
       try {
         if (!user) throw new AuthenticationError('You are not authenticated');
-        return await User.find({
+        const description = args.description ? args.description : '';
+        const username = args.username ? args.username : '';
+        // Users that have location and add filter also
+        const queryParams = {
           'location.coordinates': { $exists: true, $ne: [] },
-        });
+          $and: [
+            { description: { $regex: description, $options: 'i' } },
+            { username: { $regex: username, $options: 'i' } },
+          ],
+        };
+
+        return await User.find(queryParams);
       } catch (e) {
         console.log('Error while fetching users', e.message);
       }

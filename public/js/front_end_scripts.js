@@ -14,6 +14,7 @@ let mainMap = '';
 let usersMap = '';
 let companyLocation = '';
 let allMarkers = [];
+let layerGroup;
 
 const attribution =
   '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
@@ -60,22 +61,12 @@ entrepreneursFeedBtn.addEventListener('click', async () => {
 
     const tiles = L.tileLayer(tileUrl, { attribution });
     tiles.addTo(mainMap);
+
+    layerGroup = L.layerGroup().addTo(mainMap);
   }
 
   if (allMarkers.length === 0) {
-    const bounds = new L.LatLngBounds();
-    const allCompanies = await loadCompaniesWithLocation();
-    console.log('kaikä', allCompanies);
-    for (const comp of allCompanies) {
-      const marker = new L.Marker([
-        comp.location.coordinates[1],
-        comp.location.coordinates[0],
-      ]).addTo(mainMap);
-      allMarkers.push(marker);
-      bounds.extend(marker.getLatLng());
-    }
-
-    mainMap.fitBounds(bounds);
+    showCompanyMarkers();
   }
 });
 
