@@ -77,8 +77,10 @@ body {
   display: none;
 }
 
-#main-feed-container {
+#main-feed-container,
+#your-profile-page {
   margin-top: 20px;
+  margin-bottom: 30px;
 }
 
 .filepond--root {
@@ -220,4 +222,20 @@ body {
 
 .full-height {
   height: 100%;
+}
+
+.delete-button {
+  background-color: #ff7676;
+}
+
+.left-margin {
+  margin-left: 20px;
+}
+
+.card-img-top {
+  cursor: pointer;
+}
+
+input:disabled {
+  background-color: #d6d6d6;
 }

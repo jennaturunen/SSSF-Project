@@ -27,3 +27,16 @@ const addNewComment = async (commentData) => {
     console.log('Can not fetch', e.message);
   }
 };
+
+const deleteComment = async (params) => {
+  const query = {
+    query: `
+            mutation Variables($id: ID!) {
+              deleteComment(id: $id)
+              }
+            `,
+    variables: params,
+  };
+  const data = await fetchGraphql(query);
+  return data.deleteComment;
+};

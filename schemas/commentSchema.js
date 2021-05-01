@@ -12,5 +12,6 @@ export default gql`
   }
   extend type Mutation {
     addComment(comment: String!, linked_to_post: ID!): Comment
+    deleteComment(id: ID!): ID
   }
 `;

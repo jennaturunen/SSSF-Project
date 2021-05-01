@@ -335,7 +335,7 @@ const showUsersOwnPosts = (post, addedNewPost = null) => {
 
   const deleteButton = document.createElement('button');
   deleteButton.innerHTML = 'Delete';
-  deleteButton.classList.add('submit-button');
+  deleteButton.classList.add('submit-button', 'delete-button');
   deleteButton.addEventListener('click', () => {
     deleteUsersPost(post, cardColumn);
   });
@@ -352,17 +352,41 @@ const showUsersOwnPosts = (post, addedNewPost = null) => {
 const openModifyPostForm = async (id) => {
   const post = await getPost({ id: id });
   openCardModal();
+
   const modifyForm = `<form id="update-post-form" class="flex-column-container top-margin custom-form">
                         <h4 class="top-margin">Modify Post</h4>
                         <input type="text"name="description" placeholder="Write Description" value="${post.description}"/>
                         <input type="text"name="package_name" placeholder="Package name and details" value="${post.package_name}"/>
                         <input type="text"name="hashtags" placeholder="Hashtags and keywords" value="${post.hashtags}"/>
                         <input type="text"name="location_as_string" placeholder="Location (Region, Postcode...)" value="${post.location_as_string}"/>
+                        <div id="posts-comments-section"></div>
                         <button type="submit" class="submit-button top-margin">Update Post</button>
                       </form>
                     `;
   const modalContent = document.querySelector('#modal-content');
   modalContent.innerHTML = modifyForm;
+
+  const commentSection = document.querySelector('#posts-comments-section');
+  // Show all comments and allow user to delete comments
+  for (const comment of post.comments) {
+    const commentContainer = document.createElement('div');
+    commentContainer.innerHTML += `<span class="card-username">${comment.added_by.username}:</span>
+                                    <span class="card-package-name">${comment.comment}</span>`;
+    const deleteCommentBtn = document.createElement('button');
+    deleteCommentBtn.textContent = 'Delete';
+    deleteCommentBtn.classList.add(
+      'submit-button',
+      'delete-button',
+      'left-margin'
+    );
+    deleteCommentBtn.addEventListener('click', async (evt) => {
+      evt.preventDefault();
+      const deletedComment = await deleteComment({ id: comment.id });
+      if (deletedComment) commentContainer.remove();
+    });
+    commentContainer.appendChild(deleteCommentBtn);
+    commentSection.appendChild(commentContainer);
+  }
 
   const updatePostForm = document.querySelector('#update-post-form');
   updatePostForm.addEventListener('submit', async (evt) => {
@@ -426,7 +450,7 @@ addCommentForm.addEventListener('submit', async (evt) => {
   if (response) {
     $('#comment-modal').hide();
     addCommentForm.reset();
-
+    // Show added comment in the comment list
     const newComment = `<div>
                           <span class="card-username">${response.added_by.username}:</span>  
                           <span class="card-package-name">${response.comment}</span>

@@ -36,11 +36,20 @@ export default {
       if (!user) throw new AuthenticationError('You are not authenticated');
       try {
         args.added_by = user.id;
-        console.log('uudet argit', args);
         const newComment = new Comment(args);
         return await newComment.save();
       } catch (e) {
         console.log(`Error occurred while adding new comment ${e.message}`);
+      }
+    },
+    deleteComment: async (parent, args, { user }, info) => {
+      try {
+        if (!user) throw new AuthenticationError('You are not authenticated');
+        const id = args.id;
+        await Comment.findByIdAndDelete(id);
+        return id;
+      } catch (e) {
+        console.log(`Error occurred while deleting the comment ${e.message}`);
       }
     },
   },
