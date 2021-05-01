@@ -10,6 +10,15 @@ const entrepreneursFeedPage = document.querySelector(
 const yourProfileBtn = document.querySelector('#your-profile-btn');
 const yourProfilePage = document.querySelector('#your-profile-page');
 
+let mainMap = '';
+let usersMap = '';
+let companyLocation = '';
+
+const attribution =
+  '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+
+const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+
 addNewPostBtn.addEventListener('click', () => {
   addNewPostPage.style.display = 'flex';
   hidePageContent([mainFeedPage, entrepreneursFeedPage, yourProfilePage]);
@@ -41,6 +50,13 @@ entrepreneursFeedBtn.addEventListener('click', () => {
   hidePageContent([mainFeedPage, addNewPostPage, yourProfilePage]);
   clearActiveClass();
   entrepreneursFeedBtn.classList.toggle('active');
+
+  if (mainMap.length === 0) {
+    mainMap = L.map('main-map').setView([60.16, 24.94], 10);
+
+    const tiles = L.tileLayer(tileUrl, { attribution });
+    tiles.addTo(mainMap);
+  }
 });
 
 yourProfileBtn.addEventListener('click', () => {
@@ -48,8 +64,26 @@ yourProfileBtn.addEventListener('click', () => {
   hidePageContent([mainFeedPage, entrepreneursFeedPage, addNewPostPage]);
   clearActiveClass();
   yourProfileBtn.classList.toggle('active');
+  // Load posts only once
   if (!userPostsContainer.hasChildNodes()) {
     getUserDataAndPosts();
+  }
+
+  if (usersMap.length === 0) {
+    usersMap = L.map('company-user-map').setView([60.16, 24.94], 10);
+
+    const tiles = L.tileLayer(tileUrl, { attribution });
+    tiles.addTo(usersMap);
+
+    usersMap.on('click', (e) => {
+      if (companyLocation.length === 0) {
+        companyLocation = new L.Marker([e.latlng.lat, e.latlng.lng]).addTo(
+          usersMap
+        );
+      } else {
+        companyLocation.setLatLng([e.latlng.lat, e.latlng.lng]);
+      }
+    });
   }
 });
 

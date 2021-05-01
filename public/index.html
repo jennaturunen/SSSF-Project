@@ -11,6 +11,12 @@
       crossorigin="anonymous"
     />
     <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+      integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+      crossorigin=""
+    />
+    <link
       href="https://unpkg.com/filepond/dist/filepond.css"
       rel="stylesheet"
     />
@@ -159,32 +165,9 @@
       <!-- ENTREPRENEURS CARDS/COMPANY ACCOUNTS -->
       <div id="entrepreneurs-feed-container" class="container">
         <div class="row">
-          <div class="col">FILTERS</div>
-          <div class="col-10">
-            <div class="row row-cols-1 row-cols-md-2 g-4">
-              <div class="col">
-                <div class="card h-100">
-                  <img class="card-img-top" alt="..." />
-                  <div class="card-body">
-                    <h5 class="card-title">ENTREPRENEUR</h5>
-                    <p class="card-text">
-                      This is a longer card with supporting text below as a
-                      natural lead-in to additional content. This content is a
-                      little bit longer.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="col">
-                <div class="card h-100">
-                  <img class="card-img-top" alt="..." />
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a short card.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div class="">FILTERS</div>
+          <div class="map-container">
+            <div id="main-map"></div>
           </div>
         </div>
       </div>
@@ -229,29 +212,43 @@
 
       <!-- YOUR PROFILE PAGE -->
       <div id="your-profile-page" class="container flex-column-container">
-        <form
-          id="modify-user-info"
-          name="modify-user-info"
-          class="custom-form flex-column-container"
-        >
-          <h2 class="top-margin">YOUR PROFILE</h2>
-          <label for="name">Full name</label>
-          <input type="text" name="full_name" placeholder="Full name" />
-          <label for="name">Account type</label>
-          <input
-            type="text"
-            name="account_type"
-            placeholder="Account type"
-            disabled
-          />
-          <button
-            id="submit-modify-user-btn"
-            type="submit"
-            class="submit-button top-margin"
+        <div class="vertical-flex-container space-between">
+          <!-- Update user info form -->
+          <form
+            id="modify-user-info"
+            name="modify-user-info"
+            class="custom-form flex-column-container"
           >
-            UPDATE YOUR INFO
-          </button>
-        </form>
+            <h2 class="top-margin">YOUR PROFILE</h2>
+            <label for="name">Full name</label>
+            <input type="text" name="full_name" placeholder="Full name" />
+            <label for="name">Account type</label>
+            <input
+              type="text"
+              name="account_type"
+              placeholder="Account type"
+              disabled
+            />
+            <button
+              id="submit-modify-user-btn"
+              type="submit"
+              class="submit-button top-margin"
+            >
+              UPDATE YOUR INFO
+            </button>
+          </form>
+
+          <!-- Map for company accounts -->
+          <div class="user-map-container">
+            <div id="company-user-map"></div>
+            <button
+              id="set-company-location-btn"
+              class="submit-button top-margin"
+            >
+              Set location
+            </button>
+          </div>
+        </div>
 
         <!-- Users posts -->
         <div class="row">
@@ -300,6 +297,11 @@
       src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
       integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF"
       crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+      integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+      crossorigin=""
     ></script>
     <script src="https://unpkg.com/filepond-plugin-image-transform/dist/filepond-plugin-image-transform.js"></script>
     <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>

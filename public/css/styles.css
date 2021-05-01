@@ -239,3 +239,16 @@ body {
 input:disabled {
   background-color: #d6d6d6;
 }
+
+.map-container {
+  width: 70vw;
+}
+
+.user-map-container {
+  width: 40vw;
+}
+
+#main-map,
+#company-user-map {
+  height: 400px;
+}

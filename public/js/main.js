@@ -12,6 +12,9 @@ const manufacturerFilterInput = document.querySelector(
 );
 const hashtagsFilterInput = document.querySelector('#search-by-keywords');
 const addCommentForm = document.querySelector('#add-comment-form');
+const setCompanyLocationBtn = document.querySelector(
+  '#set-company-location-btn'
+);
 
 const imageMimeTypes = ['image/jpeg', 'image/png', 'images/gif'];
 let allManufacturers = [];
@@ -425,16 +428,6 @@ hashtagsFilterInput.addEventListener('input', (evt) => {
   getPersonalPosts();
 });
 
-// WHEN UPDATING THE PAGE -> CHECK THE TOKEN AND STAY IN FRONT-PAGE
-if (sessionStorage.getItem('token')) {
-  $('#main-pages').show();
-  $('#login-page').hide();
-  $('#main-feed-btn').click();
-  sessionStorage.setItem('personal_start', 0);
-  getPersonalPosts();
-  fetchManufacturersToSelect();
-}
-
 // ADD NEW COMMENT
 addCommentForm.addEventListener('submit', async (evt) => {
   evt.preventDefault();
@@ -452,11 +445,26 @@ addCommentForm.addEventListener('submit', async (evt) => {
     addCommentForm.reset();
     // Show added comment in the comment list
     const newComment = `<div>
-                          <span class="card-username">${response.added_by.username}:</span>  
-                          <span class="card-package-name">${response.comment}</span>
-                        </div>`;
+    <span class="card-username">${response.added_by.username}:</span>  
+    <span class="card-package-name">${response.comment}</span>
+    </div>`;
 
     const commentSection = document.querySelector('#comment-section');
     commentSection.innerHTML += newComment;
   }
 });
+
+setCompanyLocationBtn.addEventListener('click', async (evt) => {
+  const newLocation = companyLocation.getLatLng();
+  console.log('coor', newLocation);
+});
+
+// WHEN UPDATING THE PAGE -> CHECK THE TOKEN AND STAY IN FRONT-PAGE
+if (sessionStorage.getItem('token')) {
+  $('#main-pages').show();
+  $('#login-page').hide();
+  $('#main-feed-btn').click();
+  sessionStorage.setItem('personal_start', 0);
+  getPersonalPosts();
+  fetchManufacturersToSelect();
+}
