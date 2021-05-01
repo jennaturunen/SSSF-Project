@@ -5,7 +5,7 @@ const logOutBtn = document.querySelector('#logout-btn');
 const addNewPostForm = document.querySelector('#add-new-post-form');
 const personalAccountPosts = document.querySelector('#personal-account-posts');
 const nextPersonalPostsBtn = document.querySelector('#next-personal-posts-btn');
-const modifyUserBtn = document.querySelector('#submit-modify-user-btn');
+const modifyUserForm = document.querySelector('#modify-user-info');
 const userPostsContainer = document.querySelector('#own-posts');
 const manufacturerFilterInput = document.querySelector(
   '#search-by-manufacturer'
@@ -283,12 +283,13 @@ const fetchManufacturersToSelect = async () => {
 };
 
 // UPDATE CURRENT USERS INFO
-modifyUserBtn.addEventListener('click', async (evt) => {
+modifyUserForm.addEventListener('submit', async (evt) => {
   evt.preventDefault();
-  const modifyUserForm = document.querySelector('#modify-user-info');
+
   const formData = modifyUserForm.elements;
   const fields = {
     full_name: formData.full_name.value,
+    description: formData.description.value,
   };
   const newUserData = await modifyUserData(fields);
   if (newUserData) {
@@ -302,6 +303,7 @@ const getUserDataAndPosts = async () => {
   // Set form values
   const modifyUserForm = document.querySelector('#modify-user-info');
   modifyUserForm.elements['full_name'].value = currentUserData.full_name;
+  modifyUserForm.elements['description'].value = currentUserData.description;
   modifyUserForm.elements['account_type'].value = currentUserData.account_type;
 
   // Show current location, center map to marker

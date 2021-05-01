@@ -256,3 +256,7 @@ input:disabled {
 #company-user-map {
   height: 400px;
 }
+
+#modify-user-info {
+  width: 40vw;
+}

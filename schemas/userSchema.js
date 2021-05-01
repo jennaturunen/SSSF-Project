@@ -8,6 +8,7 @@ export default gql`
     account_type: String
     token: String
     location: Location
+    description: String
   }
   type Location {
     type: String
@@ -31,6 +32,11 @@ export default gql`
       full_name: String
       account_type: String!
     ): User
-    modifyUser(id: ID, full_name: String, location: NewLocation): User
+    modifyUser(
+      id: ID
+      full_name: String
+      location: NewLocation
+      description: String
+    ): User
   }
 `;

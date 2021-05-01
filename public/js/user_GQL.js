@@ -79,17 +79,19 @@ const logoutUser = async () => {
 const modifyUserData = async (params) => {
   const query = {
     query: `
-            mutation Variables($id: ID, $full_name: String, $location: NewLocation){
+            mutation Variables($id: ID, $full_name: String, $location: NewLocation, $description: String){
               modifyUser(    
                 id: $id,
                 full_name: $full_name,
-                location: $location   
+                location: $location,
+                description: $description   
                 )
                 {
                   id
                   username
                   full_name
                   account_type
+                  description
                   location {
                     coordinates
                   }
@@ -111,6 +113,7 @@ const getUserData = async () => {
                 username
                 full_name
                 account_type
+                description
                 location {
                   coordinates
                 }
@@ -130,6 +133,7 @@ const loadCompaniesWithLocation = async () => {
                 id
                 username
                 full_name
+                description
                 location {
                   coordinates
                 }
