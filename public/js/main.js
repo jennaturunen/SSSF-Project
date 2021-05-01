@@ -299,10 +299,32 @@ modifyUserBtn.addEventListener('click', async (evt) => {
 // GET CURRENT USERS INFO
 const getUserDataAndPosts = async () => {
   const currentUserData = await getUserData();
+  console.log(currentUserData);
   // Set form values
   const modifyUserForm = document.querySelector('#modify-user-info');
   modifyUserForm.elements['full_name'].value = currentUserData.full_name;
   modifyUserForm.elements['account_type'].value = currentUserData.account_type;
+
+  if (currentUserData.location.coordinates.length > 0) {
+    if (companyLocation.length === 0) {
+      companyLocation = new L.Marker([
+        currentUserData.location.coordinates[1],
+        currentUserData.location.coordinates[0],
+      ]).addTo(usersMap);
+    } else {
+      companyLocation.setLatLng([
+        currentUserData.location.coordinates[1],
+        currentUserData.location.coordinates[0],
+      ]);
+    }
+    usersMap.setView(
+      [
+        currentUserData.location.coordinates[1],
+        currentUserData.location.coordinates[0],
+      ],
+      10
+    );
+  }
 
   // Get posts and create cards for each
   const usersPosts = await getUsersPosts({ id: currentUserData.id });
@@ -454,9 +476,18 @@ addCommentForm.addEventListener('submit', async (evt) => {
   }
 });
 
+// SET NEW LOCATION FOR COMPANY ACCOUNT
 setCompanyLocationBtn.addEventListener('click', async (evt) => {
   const newLocation = companyLocation.getLatLng();
-  console.log('coor', newLocation);
+  const fields = {
+    location: {
+      coordinates: [newLocation.lng, newLocation.lat],
+    },
+  };
+  const newLocationData = await modifyUserData(fields);
+  if (newLocationData) {
+    console.log('Newe location', newLocationData);
+  }
 });
 
 // WHEN UPDATING THE PAGE -> CHECK THE TOKEN AND STAY IN FRONT-PAGE

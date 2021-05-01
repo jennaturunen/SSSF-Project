@@ -7,6 +7,14 @@ export default gql`
     full_name: String
     account_type: String
     token: String
+    location: Location
+  }
+  type Location {
+    type: String
+    coordinates: [Float]
+  }
+  input NewLocation {
+    coordinates: [Float]
   }
   extend type Query {
     user(id: ID): User
@@ -22,6 +30,6 @@ export default gql`
       full_name: String
       account_type: String!
     ): User
-    modifyUser(id: ID, full_name: String): User
+    modifyUser(id: ID, full_name: String, location: NewLocation): User
   }
 `;
