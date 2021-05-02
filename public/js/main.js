@@ -110,6 +110,7 @@ logOutBtn.addEventListener('click', async (evt) => {
   sessionStorage.removeItem('personal_start');
   $('#main-pages').hide();
   $('#login-page').show();
+  window.location.reload();
 });
 
 // ADD NEW POST FORM
