@@ -133,14 +133,11 @@ addNewPostForm.addEventListener('submit', async (evt) => {
   };
 
   const file = JSON.parse(formData.post_file.value);
-  console.log('file', file);
   if (file !== null && imageMimeTypes.includes(file.type)) {
     fields.post_file = file.data[1].data;
     fields.post_file_thumb = file.data[2].data;
     fields.post_file_type = file.type;
-    console.log('fields', fields);
     const response = await addNewPost(fields);
-    console.log('vika resp', response);
 
     addPostToMainFeed(response, true);
     if (userPostsContainer.hasChildNodes()) {
@@ -169,7 +166,6 @@ const addPostToMainFeed = (post, addNewPost = null) => {
   // open larger image when clicking image, show description and tags
   img.addEventListener('click', async () => {
     const fetchedPost = await getPost({ id: post.id });
-    console.log('klick', fetchedPost);
     openCardModal();
     let comments = '';
 
@@ -254,7 +250,6 @@ const getPersonalPosts = async (start = 0, loadMore = false) => {
   };
 
   const posts = await getPosts(params);
-  console.log('postit', posts);
   if (!loadMore) personalAccountPosts.innerHTML = '';
 
   for (const post of posts) {
@@ -498,7 +493,7 @@ setCompanyLocationBtn.addEventListener('click', async (evt) => {
   };
   const newLocationData = await modifyUserData(fields);
   if (newLocationData) {
-    console.log('Newe location', newLocationData);
+    console.log('New location', newLocationData);
   }
 });
 
@@ -531,7 +526,7 @@ const showCompanyMarkers = async () => {
   };
 
   const allCompanies = await loadCompaniesWithLocation(params);
-  console.log('kaiki', allCompanies);
+
   // Create markers, set zoom to show them all
   const bounds = new L.LatLngBounds();
   for (const comp of allCompanies) {

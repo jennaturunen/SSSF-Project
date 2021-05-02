@@ -5,7 +5,6 @@ import Comment from '../models/comment.js';
 export default {
   Query: {
     posts: async (parent, args, { user }) => {
-      console.log('resolver', args);
       if (!user) throw new AuthenticationError('You are not authenticated');
       try {
         const start = args.start ? parseInt(args.start) : 0;
@@ -44,7 +43,6 @@ export default {
       if (!user) throw new AuthenticationError('You are not authenticated');
       try {
         args.added_by = user.id;
-        console.log('uudet argit', args);
         const newPost = new Post(args);
         return await newPost.save();
       } catch (e) {
@@ -64,7 +62,7 @@ export default {
 
         return updatePost.save();
       } catch (e) {
-        console.log(`Error occured while updating the station ${e.message}`);
+        console.log(`Error occured while updating the post ${e.message}`);
       }
     },
     deletePost: async (parent, args, { user }, info) => {

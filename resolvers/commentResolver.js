@@ -4,12 +4,6 @@ import { AuthenticationError } from 'apollo-server-express';
 export default {
   Post: {
     comments(parent) {
-      console.log(
-        'JAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
-        parent.description,
-        parent._id,
-        parent.location_as_string
-      );
       try {
         return Comment.find({ linked_to_post: parent._id });
       } catch (e) {
@@ -19,7 +13,6 @@ export default {
   },
   Query: {
     comments: async (parent, args, { user }) => {
-      console.log('NO TÄÄÄÄÄÄÄÄÄÄÄLLLLLLLresolver', args);
       if (!user) throw new AuthenticationError('You are not authenticated');
       try {
         const queryParams = {};

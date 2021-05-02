@@ -10,6 +10,7 @@ const entrepreneursFeedPage = document.querySelector(
 const yourProfileBtn = document.querySelector('#your-profile-btn');
 const yourProfilePage = document.querySelector('#your-profile-page');
 
+// Variables for maps
 let mainMap = '';
 let usersMap = '';
 let companyLocation = '';

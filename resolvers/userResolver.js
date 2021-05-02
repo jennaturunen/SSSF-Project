@@ -107,7 +107,6 @@ export default {
         }
 
         const id = args.id ? args.id : user._id;
-        console.log('upp', args);
         const userData = { ...args };
         const updatedUser = await User.findByIdAndUpdate(id, userData, {
           new: true,

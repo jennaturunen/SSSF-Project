@@ -1,7 +1,6 @@
 'use strict';
 
 const addNewPost = async (postData) => {
-  console.log('postData params', postData);
   const query = {
     query: `
            mutation VariableTest($manufacturer: ID, $package_name: String, $description: String, $location_as_string: String, $hashtags: String, $post_file: String!, $post_file_thumb: String!, $post_file_type: String!) {  
@@ -40,7 +39,6 @@ const addNewPost = async (postData) => {
 
   try {
     const data = await fetchGraphql(query);
-    console.log('haettu data', data);
     return data.addPost;
   } catch (e) {
     console.log('Can not fetch', e.message);

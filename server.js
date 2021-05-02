@@ -5,8 +5,6 @@ import express from 'express';
 import dotenv from 'dotenv';
 import connectMongo from './db/db.js';
 import { checkAuth } from './passport/authenticate.js';
-// import helmet from 'helmet';
-// import cors from 'cors';
 
 dotenv.config();
 
@@ -34,12 +32,6 @@ dotenv.config();
     });
 
     const app = express();
-    // app.use(
-    //   helmet({
-    //     contentSecurityPolicy: false,
-    //     //ieNoOpen: false,
-    //   })
-    // );
 
     app.use(express.static('public'));
     app.use(express.json({ limit: '50mb' })); // for parsing application/json
@@ -51,14 +43,7 @@ dotenv.config();
       })
     ); // for parsing application/x-www-form-urlencoded
 
-    // Enable cors for all requests
-    //app.use(cors());
-
     server.applyMiddleware({ app, path: '/graphql' });
-
-    // app.get('/', (req, res) => {
-    //   res.send('Hello Secure World!');
-    // });
 
     app.listen({ port: 3000 }, () =>
       console.log(
