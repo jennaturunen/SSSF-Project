@@ -16,7 +16,7 @@ export default {
           .regex('hashtags', new RegExp(hashtags, 'i'))
           .sort({ _id: -1 })
           .skip(start)
-          .limit(10);
+          .limit(6);
       } catch (e) {
         console.log(`Error while fetching all posts ${e.message}`);
       }

@@ -261,8 +261,8 @@ const getPersonalPosts = async (start = 0, loadMore = false) => {
 // PAGINATION FOR PERSONAL POSTS-FEED
 nextPersonalPostsBtn.addEventListener('click', async () => {
   const start = parseInt(sessionStorage.getItem('personal_start'));
-  getPersonalPosts(start + 10, true);
-  sessionStorage.setItem('personal_start', start + 10);
+  getPersonalPosts(start + 6, true);
+  sessionStorage.setItem('personal_start', start + 6);
 });
 
 // LOAD MANUFACTURER OPTIONS TO ADD POST-SELECT AND FILTER-SELECT
