@@ -2,9 +2,11 @@
 Server-side scripting frameworks, course project
 
 - Link to front-end http://jt-test-app.jelastic.metropolia.fi/
-- Link to test GraphQL: https://jt-test-app.jelastic.metropolia.fi/graphql
 
 **You should be able to test everything on front-end, to see some changes you need to refresh the page.**
+
+- Link to test GraphQL: https://jt-test-app.jelastic.metropolia.fi/graphql
+
 
 The app is designed for people who are building their own Move-In-Ready house in Finland. People can share their experiences of everything related to construction, for example recommendations, pictures, what didn't go as planned and some nice-to-know facts for those who are still planning their project.
 
