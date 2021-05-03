@@ -1,8 +1,8 @@
 # SSSF-Project
 Server-side scripting frameworks, course project
 
-Link to front-end http://jt-test-app.jelastic.metropolia.fi/
-Link to test GraphQL: https://jt-test-app.jelastic.metropolia.fi/graphql
+- Link to front-end http://jt-test-app.jelastic.metropolia.fi/
+- Link to test GraphQL: https://jt-test-app.jelastic.metropolia.fi/graphql
 
 You should be able to test everything on front-end, to see some changes you need to refresh the page.
 
