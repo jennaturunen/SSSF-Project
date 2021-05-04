@@ -4,8 +4,8 @@ Server-side scripting frameworks, course project
 - Link to front-end http://jt-test-app.jelastic.metropolia.fi/
 
 Test users for easy login:
-username: test_personal, password: Personal123
-username: test_company, password: Company123
+- username: test_personal, password: Personal123
+- username: test_company, password: Company123
 
 **You should be able to test everything on front-end, to see some changes you need to refresh the page.**
 
