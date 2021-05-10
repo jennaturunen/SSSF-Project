@@ -48,6 +48,10 @@ body {
   border-radius: 4px;
 }
 
+.submit-button:hover {
+  background-color: darkgray;
+}
+
 .flex-column-container {
   display: flex;
   flex-direction: column;
@@ -247,6 +251,7 @@ input:disabled {
 
 .user-map-container {
   width: 40vw;
+  z-index: 1;
 }
 
 #main-map {
@@ -264,4 +269,18 @@ input:disabled {
 
 #set-company-location-btn {
   display: none;
+}
+
+.navbar a {
+  cursor: pointer;
+}
+
+.card-img-top:hover {
+  opacity: 0.7;
+  transform: scale(0.95);
+  transition: 0.5s ease-in-out;
+}
+
+.password-guide {
+  font-size: 0.8rem;
 }
