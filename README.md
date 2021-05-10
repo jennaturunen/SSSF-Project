@@ -65,7 +65,8 @@ Techniques used:
     full_name
     account_type
   }
-}```
+}
+```
 
 
 **Login**
@@ -76,6 +77,7 @@ Techniques used:
     username
     token
   }
-}```
+}
+```
 
 
