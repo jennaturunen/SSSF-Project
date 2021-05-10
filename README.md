@@ -51,9 +51,9 @@ Techniques used:
 
 **Register User**
 
-``mutation {
+````mutation {
   registerUser(
-		username:"juhuu"
+    username:"user"
     password:"aatajat123"
     password_second:"aatajat123"
     full_name:"Kaatajat"
@@ -65,4 +65,4 @@ Techniques used:
     full_name
     account_type
   }
-}``
+}````
