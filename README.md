@@ -69,14 +69,12 @@ Techniques used:
 
 
 **Login**
-````
-query {
+````query {
   login(username:"", password:"") {
     id
     username
     token
   }
-}
-````
+}````
 
 
