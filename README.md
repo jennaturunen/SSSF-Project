@@ -110,4 +110,143 @@ Techniques used:
      }
   }
   ``` 
+  
+  **Get posts**
+  
+  ```query Variables($start: Int, $manufacturer: ID, $keyword: String){
+  posts(start: $start, manufacturer: $manufacturer, keyword: $keyword) {
+    id
+    manufacturer {
+      id 
+      name
+    }
+    package_name
+    description
+    hashtags
+    location_as_string
+    added_by {
+      id
+      username
+      full_name
+      account_type
+    }
+    comments {
+      id
+      comment
+      added_by {
+        id
+        username
+      }
+    }
+    post_file
+    post_file_thumb
+    post_file_type
+  }
+}
+```
+
+**Get one post**
+
+```query {
+  post(id: "608eaf8ad90a85599cd73a0e") {
+    id
+		manufacturer {
+      id
+      name
+    }
+    package_name
+    description
+    hashtags
+    location_as_string
+    added_by {
+      id
+      username
+      account_type
+    }
+    comments {
+      id
+      comment
+      added_by {
+        id
+        username
+      }
+    }
+  }
+}
+```
+
+**Get posts by user**
+
+```query Variables($id: ID!){
+  postsByUser(id: $id) {
+    id
+    manufacturer {
+      id
+      name
+    }
+    package_name
+    description
+    hashtags
+    location_as_string
+    post_file
+    post_file_thumb
+    post_file_type
+    added_by {
+      id
+      username
+      account_type
+    }
+  }
+}
+```
+
+**Modify post**
+
+```mutation Variables($id: ID!, $manufacturer: ID, $package_name: String, $description: String, $hashtags: String, $location_as_string: String){
+  modifyPost(    
+    id: $id,
+      manufacturer: $manufacturer, 
+      package_name: $package_name,
+      description: $description,
+      location_as_string: $location_as_string,
+      hashtags: $hashtags
+  )
+  {
+      id
+      manufacturer {
+        id
+        name
+      }
+      package_name
+      description
+      location_as_string
+      hashtags
+    }
+  }
+  ```
+  
+**Delete post**
+
+```mutation Variables($id: ID!) {
+  deletePost(id: $id)
+}
+```
+
+**Add comment**
+```mutation Variables($comment: String!, $linked_to_post: ID!){
+  addComment(linked_to_post: $linked_to_post, 
+    comment: $comment,
+  	){
+    id
+    added_by {
+      id
+      username
+    }
+    comment
+    linked_to_post {
+      id
+    }
+  }
+}
+```
 
