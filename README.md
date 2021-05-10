@@ -51,7 +51,7 @@ Techniques used:
 
 **Register User**
 
-``mutation Variables($username: String!, $password: String!, $password_second: String!, $full_name: String, $account_type: String!){
+```mutation Variables($username: String!, $password: String!, $password_second: String!, $full_name: String, $account_type: String!){
   registerUser(
     username: $username,
     password: $password,
@@ -65,16 +65,17 @@ Techniques used:
     full_name
     account_type
   }
-}``
+}```
 
 
 **Login**
-``query {
+
+```query {
   login(username:"", password:"") {
     id
     username
     token
   }
-}``
+}```
 
 
