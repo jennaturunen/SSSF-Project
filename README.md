@@ -47,7 +47,7 @@ Techniques used:
 - HTML, CSS, JavaScript + Bootstrap and jQuery
 - Filepond
 
-<h2>Example GraphQL-requests</h2>
+<h2>Some example GraphQL-requests</h2>
 
 **Register User**
 
