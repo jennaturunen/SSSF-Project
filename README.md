@@ -24,11 +24,13 @@ Things to test:
 
 - Link to test GraphQL: https://jt-test-app.jelastic.metropolia.fi/graphql
 
+
 **Changes made after presentation:**
 - Correct cursor for navigation links
 - Fixed maps z-index (not blocking modify-modals content)
 - Show password requirements
 - Animation when hovering over card/post on main feed
+
 
 
 The app is designed for people who are building their own Move-In-Ready house in Finland. People can share their experiences of everything related to construction, for example recommendations, pictures, what didn't go as planned and some nice-to-know facts for those who are still planning their project.
@@ -45,11 +47,11 @@ Techniques used:
 - HTML, CSS, JavaScript + Bootstrap and jQuery
 - Filepond
 
-**Example GraphQL-requests**
+<h2>Example GraphQL-requests</h2>
 
-Register User
+**Register User**
 
-mutation {
+``mutation {
   registerUser(
 		username:"juhuu"
     password:"aatajat123"
@@ -63,4 +65,4 @@ mutation {
     full_name
     account_type
   }
-}
+}``
