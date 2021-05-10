@@ -80,4 +80,34 @@ Techniques used:
 }
 ```
 
+**Get user**
+
+```query {
+  user(id:"608ea4aa9a636a1d20fb0592" ) {
+    id
+    username
+    account_type
+    full_name
+    description
+    location {
+      coordinates
+    }
+  }
+}
+```
+
+**Get users with location**
+
+```query Variables($description: String, $username: String){
+     usersWithLocation(description: $description, username: $username) {
+       id
+       username
+       full_name
+       description
+       location {
+         coordinates
+       }
+     }
+  }
+  ``` 
 
