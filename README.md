@@ -51,13 +51,13 @@ Techniques used:
 
 **Register User**
 
-````mutation {
+````mutation Variables($username: String!, $password: String!, $password_second: String!, $full_name: String, $account_type: String!){
   registerUser(
-    username:"user"
-    password:"aatajat123"
-    password_second:"aatajat123"
-    full_name:"Kaatajat"
-    account_type:"Company"
+    username: $username,
+    password: $password,
+    password_second: $password_second,
+    full_name: $full_name,
+    account_type: $account_type
   )
   {
     id
@@ -66,3 +66,17 @@ Techniques used:
     account_type
   }
 }````
+
+
+**Login**
+````
+query {
+  login(username:"", password:"") {
+    id
+    username
+    token
+  }
+}
+````
+
+
